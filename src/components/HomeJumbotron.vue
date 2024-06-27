@@ -15,7 +15,7 @@
         </div>
         <div class="col-6 position-relative">
             <div class="overflow-hidden rounded">
-                <img src="https://a0.muscache.com/im/pictures/84e3c5a5-ae64-4909-8791-7ea562302b4a.jpg?im_w=1200" alt="" srcset="" class="w-100">
+                <img src="../assets/images/image.png" alt="" srcset="" class="w-100">
             </div>
             <img src="../assets/images/sun.png" alt="" srcset="" class="position-absolute sun">
         </div>
