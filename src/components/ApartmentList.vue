@@ -30,6 +30,7 @@ export default {
     }
 }
 </script>
+
 <template>
     <!-- display solo se il caricamento è finito -->
     <div 
@@ -46,11 +47,13 @@ export default {
                     </div>
                 <h5>{{ host.title }}</h5>
                 <div>{{ host.price }}€/notte</div>
+                <router-link :to="{name: 'host-show', params: {'slug' : host.slug}}" class="btn btn-primary">Vediamolo</router-link>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
 <style lang="scss">
 .ms-card{
     display: flex;
