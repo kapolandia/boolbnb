@@ -1,12 +1,14 @@
 <script>
   import HomeJumbotron from '../components/HomeJumbotron.vue';
   import HomeHosts from '../components/HomeHosts.vue';
+  import ApartmentList from '../components/ApartmentList.vue';
 
   export default{
     name: 'AppIndex',
     components: {
-      'HomeJumbotron': HomeJumbotron,
-      'HomeHosts' : HomeHosts,
+      HomeJumbotron,
+      HomeHosts,
+      ApartmentList,
     },
   }
 </script>
@@ -15,6 +17,9 @@
   <div class="container mt-5">
     <HomeJumbotron></HomeJumbotron>
     <HomeHosts></HomeHosts>
+  </div>
+  <div class="container">
+    <ApartmentList></ApartmentList>
   </div>
 </template>
 
