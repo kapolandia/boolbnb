@@ -10,7 +10,7 @@
             <h1 class="h1 fw-bolder display-4">Il soggiorno <span class="primary-color">perfetto</span> ovunque tu vada.</h1>
             <h5 class="subtitle fw-bolder mt-5">Scopri le nostre case da sogno</h5>
             <a class="btn primary-btn mt-3">Trova la tua </a>
-            <img src="../assets/images/scribble.png" alt="" srcset="" class="position-absolute scribble-1">
+            <img src="../assets/images/scribble.png" alt="" srcset="" class="position-absolute scribble-1  d-sm-block d-lg-none" >
             <img src="../assets/images/scribble.png" alt="" srcset="" class="position-absolute scribble-2">
         </div>
         <div class="col-6 position-relative">
@@ -18,6 +18,7 @@
                 <img src="../assets/images/image.png" alt="" srcset="" class="w-100">
             </div>
             <img src="../assets/images/sun.png" alt="" srcset="" class="position-absolute sun">
+            <img src="../assets/images/cloud.png" alt="" srcset="" class="position-absolute cloud">
         </div>
     </div>
 </template>
@@ -68,6 +69,12 @@
     .sun{
         right: -30px;
         top: -40px;
+        width: 100px;
+    }
+
+    .cloud{
+        left: -20px;
+        top: -70px;
         width: 100px;
     }
 </style>

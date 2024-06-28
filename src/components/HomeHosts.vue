@@ -5,7 +5,7 @@
 </script>
 
 <template>
-    <div class="container text-center justify-content-center mt-5 pt-4">
+    <div class="container text-center mt-5 pt-4">
         <h2 class="fw-bold">Con i migliori host <i class="fa-solid fa-heart primary-color"></i></h2>
         <div class="slider mt-4" style="
             --width: 100px;
@@ -35,6 +35,9 @@
                 <div class="item" style="--position: 10"><img src="../assets/images/profile_10.webp" alt=""></div>
             </div>
         </div>
+    </div>
+    <div class="d-flex align-content-center justify-content-center">
+        <img src="../assets/images/logo-arrow.png" alt="" srcset="">
     </div>
 </template>
 
@@ -79,7 +82,6 @@
         height:200px;
         padding-top: 30px;
         padding-bottom: 100px;
-        margin-bottom: 100px;
         overflow: hidden;
         mask-image: linear-gradient(
             to right,
@@ -101,7 +103,8 @@
         left: 100%;
         animation: autoRun 10s linear infinite;
         transition: filter 0.5s;
-        border-radius: 12px;
+        border-radius: 16px;
+        box-shadow: rgba(99, 99, 99, 0.314) 0px 2px 12px 0px;
         overflow: hidden;
         animation-delay: calc( (10s / var(--quantity)) * (var(--position) - 1) )!important;
     }
