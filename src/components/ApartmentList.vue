@@ -36,8 +36,10 @@ export default {
     <div 
     v-if="!hostIsLoading"
     class="container text-center mt-4">
-    <h2 class="fw-bold">Per tutti i gusti <i class="fa-solid fa-house-circle-check primary-color"></i></h2>
-    <p class="p-subtitle w-75 mx-auto mb-5">Che tu stia cercando un accogliente appartamento in centro, una villa spaziosa con giardino, o una tranquilla casa di campagna, siamo certi che abbiamo la soluzione giusta per te.</p>
+    <div class="my-border-bottom mb-5">
+        <h2 class="fw-bold">Per tutti i gusti <i class="fa-solid fa-house-circle-check primary-color"></i></h2>
+        <p class="p-subtitle w-75 mx-auto">Che tu stia cercando un accogliente appartamento in centro, una villa spaziosa con giardino, o una tranquilla casa di campagna, siamo certi che abbiamo la soluzione giusta per te.</p>
+    </div>
         <div class="row">
             <div class="col-3 my-2">
                 <div class="ms-card">
@@ -83,5 +85,10 @@ export default {
 
     .p-subtitle{
         font-size: 18px;
+    }
+
+    .my-border-bottom{
+        border-bottom: 1px solid #e9e9e9;
+        padding-bottom: 10px;
     }
 </style>
