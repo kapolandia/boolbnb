@@ -14,13 +14,15 @@
 </script>
 
 <template>
-  <div class="container mt-5">
+  <main class="overflow-hidden">
+    <div class="container mt-5">
     <HomeJumbotron></HomeJumbotron>
     <HomeHosts></HomeHosts>
   </div>
   <div class="container">
     <ApartmentList></ApartmentList>
   </div>
+  </main>
 </template>
 
 <style scoped>
