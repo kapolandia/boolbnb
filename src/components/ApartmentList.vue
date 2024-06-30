@@ -13,7 +13,7 @@ export default {
             hosts:[],
             //caricamento api
             hostIsLoading: true,
-            Popup: Object,
+            Popup: {},
             
         }
     },
@@ -78,10 +78,7 @@ export default {
                         <div>{{ host.price }}€/notte</div>
                     </div>
                 </router-link>
-                <div
-                v-show="Popup.length > 1">
-                    <ShareProp :shareProp="Popup"></ShareProp>
-                </div>
+                <ShareProp v-if="this.Popup.title != null" :shareProp="Popup"></ShareProp>
                 
             </div>
         </div>
