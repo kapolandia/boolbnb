@@ -13,13 +13,14 @@ export default {
             hosts:[],
             //caricamento api
             hostIsLoading: true,
-            Popup: {},
+            Popup: Object,
+            
         }
     },
 
     methods:{
         GetHostFromApi() {
-            console.log('chiamo le api');
+            console.log(this.Popup.length);
             axios.get(this.apiUrl + '/apartments')
             
             .then((response) => {
@@ -33,6 +34,7 @@ export default {
             console.log(host);
             
             this.Popup = host;
+            console.log(this.Popup);
             
         }
     },
@@ -69,14 +71,14 @@ export default {
                 <router-link class="text-decoration-none text-black position-relative" :to="{name: 'host-show', params: {'slug' : host.slug}}">
                     <div class="ms-card">
                         <div class="img-container position-relative my-2">
-                            <div @click="GetPopup(host)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+                            <div @click.prevent="GetPopup(host)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
                             <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTEyNjE4NTg5MzIzNjI0NjI2MA%3D%3D/original/55a2777a-fc80-4d7b-af05-a9f737ff8661.jpeg?im_w=1440&im_q=highq" alt="">
                         </div>
                         <h5>{{ host.title }}</h5>
                         <div>{{ host.price }}€/notte</div>
-                        <ShareProp :shareProp="host"></ShareProp>
                     </div>
                 </router-link>
+                <ShareProp v-show="this.Popup.length  > 2" :shareProp="Popup"></ShareProp>
                 
             </div>
         </div>
