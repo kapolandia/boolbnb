@@ -49,7 +49,7 @@ export default {
 
 <template>
     <!-- display solo se il caricamento è finito -->
-     <section class="position relative">
+     <section class="position-relative">
 
          <div 
          v-if="!hostIsLoading"
@@ -81,15 +81,15 @@ export default {
                         <div>{{ host.price }}€/notte</div>
                     </div>
                 </router-link>
-                <ShareProp 
-                v-if="this.Popup.title != null" 
-                :shareProp="Popup"
-                @closePopup="ResetPopup()"
-                >
-                
-                </ShareProp>
                 
             </div>
+            <ShareProp 
+            v-if="this.Popup.title != null" 
+            :shareProp="Popup"
+            @closePopup="ResetPopup()"
+            >
+            
+            </ShareProp>
         </div>
     </div>
 </section>
@@ -111,7 +111,7 @@ z-index: 0;
         top:10px;
         right: 10px;
         background-color: rgba($color: lightgrey, $alpha: 0.7);
-        z-index: 15616516;
+        z-index: 1;
     }
     .img-container{
         width: 100%;
