@@ -36,6 +36,9 @@ export default {
             this.Popup = host;
             console.log(this.Popup);
             
+        },
+        ResetPopup(){
+            this.Popup = {}
         }
     },
     mounted(){
@@ -78,7 +81,13 @@ export default {
                         <div>{{ host.price }}€/notte</div>
                     </div>
                 </router-link>
-                <ShareProp v-if="this.Popup.title != null" :shareProp="Popup"></ShareProp>
+                <ShareProp 
+                v-if="this.Popup.title != null" 
+                :shareProp="Popup"
+                @closePopup="ResetPopup()"
+                >
+                
+                </ShareProp>
                 
             </div>
         </div>

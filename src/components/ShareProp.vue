@@ -15,6 +15,7 @@ export default  {
 <template>
 
 <div class="container popup d-flex align-items-center justify-content-center">
+    <i @click="$emit('closePopup')" class="fa-solid fa-close"></i>
     {{ shareProp.title }}
     {{$route.fullPath + 'hosts/' + shareProp.slug }} 
 </div>
