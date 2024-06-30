@@ -78,7 +78,10 @@ export default {
                         <div>{{ host.price }}€/notte</div>
                     </div>
                 </router-link>
-                <ShareProp v-show="this.Popup.length  > 2" :shareProp="Popup"></ShareProp>
+                <div
+                v-show="Popup.length > 1">
+                    <ShareProp :shareProp="Popup"></ShareProp>
+                </div>
                 
             </div>
         </div>
