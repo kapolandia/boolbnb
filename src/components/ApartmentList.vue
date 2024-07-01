@@ -78,7 +78,7 @@ export default {
                     <div class="ms-card">
                         <div class="img-container position-relative my-2">
                             <div @click.prevent="GetPopup(host)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
-                            <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTEyNjE4NTg5MzIzNjI0NjI2MA%3D%3D/original/55a2777a-fc80-4d7b-af05-a9f737ff8661.jpeg?im_w=1440&im_q=highq" alt="">
+                            <img :src="'http://127.0.0.1:8000/api/'+ host.thumb" alt="">
                         </div>
                         <h5>{{ host.title }}</h5>
                         <div>{{ host.price }}€/notte</div>
