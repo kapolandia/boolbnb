@@ -31,13 +31,13 @@ export default  {
                 {{ shareProp.title.toUpperCase() }}
             </h5>
         </div>
-        <div class="img-container my-4"> 
+        <div class="img-container mt-4"> 
             <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTEyNjE4NTg5MzIzNjI0NjI2MA%3D%3D/original/55a2777a-fc80-4d7b-af05-a9f737ff8661.jpeg?im_w=1440&im_q=highq" alt="">
         </div>
-        <div class="col-10 mt-3 w-100">
+        <div class="col-10 mt-5 w-100">
 
             <div class="price d-flex align-content-start my-2">Prezzo {{ shareProp.price }}€ /notte</div>
-            <div class="link-wrapper d-flex align-items-center justify-content-between  p-2">
+            <div class="link-wrapper d-flex align-items-center justify-content-between mt-3 p-2">
             {{linkApartment}}
                 <button class="copy" @click="copyText()">
                     <i class="fa-solid fa-copy"></i>
