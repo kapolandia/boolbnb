@@ -34,8 +34,8 @@ import axios from 'axios';
             <div v-if="host.thumb" class="mt-4">
                 <!-- http://127.0.0.1:8000/storage/${host.thumb}     percorso alla cartella della api -->
                 <div class="row m-0">
-                    <div class="col-6 overflow-hidden first-div-img p-0 ">
-                        <img src="https://a0.muscache.com/im/pictures/c74e5b95-8877-4c9a-8a9a-423c4db4cdd7.jpg?im_w=1200" alt="non funziona il link" class="w-100">
+                    <div class="col-6 overflow-hidden first-div-img p-0">
+                        <img src="https://a0.muscache.com/im/pictures/c74e5b95-8877-4c9a-8a9a-423c4db4cdd7.jpg?im_w=1200" alt="non funziona il link" class="w-100 h-100">
                     </div>
                     <div class="col-3 pe-0">
                         <img src="https://a0.muscache.com/im/pictures/984e9d3f-34d8-4047-984e-d8a6f0cdcf3c.jpg?im_w=720" alt="non funziona il link" class="w-100">
