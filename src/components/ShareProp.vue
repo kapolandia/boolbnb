@@ -32,7 +32,7 @@ export default  {
             </h5>
         </div>
         <div class="img-container mt-4"> 
-            <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTEyNjE4NTg5MzIzNjI0NjI2MA%3D%3D/original/55a2777a-fc80-4d7b-af05-a9f737ff8661.jpeg?im_w=1440&im_q=highq" alt="">
+            <img :src="'http://127.0.0.1:8000/api/'+shareProp.thumb" alt="">
         </div>
         <div class="col-10 mt-5 w-100">
 
