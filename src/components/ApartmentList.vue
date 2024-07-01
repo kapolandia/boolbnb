@@ -62,26 +62,18 @@ export default {
              <p class="p-subtitle w-75 mx-auto">Che tu stia cercando un accogliente appartamento in centro, una villa spaziosa con giardino, o una tranquilla casa di campagna, siamo certi che abbiamo la soluzione giusta per te.</p>
             </div>
             <div class="row">
-                <div class="col-3 my-2">
-                    <div class="ms-card">
-                        <div class="img-container">
-                            <img src="../assets/images/image.png" alt="">
-                        </div>
-                        <h5>Ciao</h5>
-                        <div>100€ a notte</div>
-                    </div>
-                </div>
                 <div
                 v-for="host in hosts"
                 class="col-3 my-2">
                 <router-link class="text-decoration-none text-black position-relative" :to="{name: 'host-show', params: {'slug' : host.slug}}">
-                    <div class="ms-card">
+                    <div class="ms-card text-start">
                         <div class="img-container position-relative my-2">
                             <div @click.prevent="GetPopup(host)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
-                            <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTEyNjE4NTg5MzIzNjI0NjI2MA%3D%3D/original/55a2777a-fc80-4d7b-af05-a9f737ff8661.jpeg?im_w=1440&im_q=highq" alt="">
+                            <img src="https://a0.muscache.com/im/pictures/c74e5b95-8877-4c9a-8a9a-423c4db4cdd7.jpg?im_w=1200" alt="">
                         </div>
-                        <h5>{{ host.title }}</h5>
-                        <div>{{ host.price }}€/notte</div>
+                        <h6 class="mt-3 fw-bold">{{ host.title }}</h6>
+                        <p class="text-secondary mb-0">Host: azienda specializzata</p>
+                        <p ><strong>{{ Math.floor(host.price) }} €</strong> a notte</p>
                     </div>
                 </router-link>
                 
