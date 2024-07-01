@@ -62,26 +62,18 @@ export default {
              <p class="p-subtitle w-75 mx-auto">Che tu stia cercando un accogliente appartamento in centro, una villa spaziosa con giardino, o una tranquilla casa di campagna, siamo certi che abbiamo la soluzione giusta per te.</p>
             </div>
             <div class="row">
-                <div class="col-3 my-2">
-                    <div class="ms-card">
-                        <div class="img-container">
-                            <img src="../assets/images/image.png" alt="">
-                        </div>
-                        <h5>Ciao</h5>
-                        <div>100€ a notte</div>
-                    </div>
-                </div>
                 <div
                 v-for="host in hosts"
                 class="col-3 my-2">
                 <router-link class="text-decoration-none text-black position-relative" :to="{name: 'host-show', params: {'slug' : host.slug}}">
-                    <div class="ms-card">
+                    <div class="ms-card text-start">
                         <div class="img-container position-relative my-2">
                             <div @click.prevent="GetPopup(host)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
                             <img :src="'http://127.0.0.1:8000/api/'+ host.thumb" alt="">
                         </div>
-                        <h5>{{ host.title }}</h5>
-                        <div>{{ host.price }}€/notte</div>
+                        <h6 class="mt-3 fw-bold">{{ host.title }}</h6>
+                        <p class="text-secondary mb-0">Host: azienda specializzata</p>
+                        <p ><strong>{{ Math.floor(host.price) }} €</strong> a notte</p>
                     </div>
                 </router-link>
                 

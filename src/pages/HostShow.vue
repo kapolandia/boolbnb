@@ -26,36 +26,41 @@ import axios from 'axios';
 </script>
 
 <template>
-    <div class="container">
+    <div class="container mt-5">
         <div v-if="host">
             <div v-if="host.title">
-                <h1>{{ host.title }}</h1>
+                <h2 class="fw-bold">{{ host.title }}</h2>
             </div>
-            <div v-if="host.thumb">
+            <div v-if="host.thumb" class="mt-4">
                 <!-- http://127.0.0.1:8000/storage/${host.thumb}     percorso alla cartella della api -->
-                <img :src="`${host.thumb}`" alt="non funziona il link">
+                <div class="row m-0">
+                    <div class="col-6 overflow-hidden first-div-img p-0">
+                        <img src="https://a0.muscache.com/im/pictures/c74e5b95-8877-4c9a-8a9a-423c4db4cdd7.jpg?im_w=1200" alt="non funziona il link" class="w-100 h-100">
+                    </div>
+                    <div class="col-3 pe-0">
+                        <img src="https://a0.muscache.com/im/pictures/984e9d3f-34d8-4047-984e-d8a6f0cdcf3c.jpg?im_w=720" alt="non funziona il link" class="w-100">
+                        <img src="https://a0.muscache.com/im/pictures/airflow/Hosting-12372886/original/3b9d1711-7750-4e3e-b798-fc4e554371dc.jpg?im_w=720" alt="non funziona il link" class="w-100" style="margin-top: 16px;">
+                    </div>
+                    <div class="col-3 pe-0 last-div-img overflow-hidden">
+                        <img src="https://a0.muscache.com/im/pictures/df199b26-98fd-4e8e-bfd6-4f3346416c53.jpg?im_w=720" alt="non funziona il link" class="w-100">
+                        <img src="https://a0.muscache.com/im/pictures/3d61e475-7aae-42af-9423-ce901f23b1e4.jpg?im_w=720" alt="non funziona il link" class="w-100" style="margin-top: 16px;">
+                    </div>
+                </div>
             </div>
-            <div v-if="host.price">
-                <div><strong>{{ host.price }}</strong>€/notte</div>
-            </div>
-            <div class="d-flex gap-2">
 
-                <div v-if="host.square_meters">
-                    <div>MetriQ: <strong>{{ host.square_meters }}</strong></div>
-                </div>
-                <div v-if="host.number_of_room">
-                    <div>Stanze: <strong>{{ host.number_of_room }}</strong></div>
-                </div>
-                <div v-if="host.number_of_bath">
-                    <div>Bagni: <strong>{{ host.number_of_bath }}</strong></div>
-                </div>
-                <div v-if="host.number_of_bed">
-                    <div>Letti: <strong>{{ host.number_of_bed }}</strong></div>
-                </div>
+
+            <div class="row ms-0">
+                <div class="col-7">
+                    <div v-if="host.address" class="mt-5">
+                <h4 class="fw-bold">Stanza a {{ host.address }}</h4>
             </div>
-            <div v-if="host.address">
-                <div>indirizzo: <strong>{{ host.address }}</strong></div>
-            </div>
+            <p class="dashboard-p text-secondary">
+                {{ host.number_of_room < 2 ? host.number_of_room + ' camera da letto' : host.number_of_room + ' camere da letto' }} &#183;
+                {{ host.number_of_bed < 2 ? host.number_of_bed + ' letto' : host.number_of_bed + ' letti' }} &#183;
+                {{ host.number_of_bath < 2 ? host.number_of_bath + ' bagno' : host.number_of_bath + ' bagni' }} &#183;
+                {{ host.square_meters }} m<sup>2</sup>
+            </p>
+
             <div v-if="host.description">
                 <div>Descrizione:
                     <div>
@@ -64,9 +69,61 @@ import axios from 'axios';
                     
                 </div>
             </div>
+                </div>
+
+                <div class="col-5 d-flex flex-column align-items-center">
+                    <div class="my-card mt-5 p-4">
+                        <div v-if="host.price">
+                            <p><span class="h4 fw-bold">{{ Math.floor(host.price) }} €</span>&nbsp; a notte</p>
+                            <a class="btn primary-btn mt-3">Prenota</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <style lang="scss">
+
+.primary-color{
+    color: $primary-color;
+}
+
+.primary-btn{
+    background-color: $primary-color;
+    color: #fff;
+    font-weight: 600;
+    padding: 20px 26px;
+    width: 100%;
+}
+
+.primary-btn:hover{
+    background-color: $primary-color;
+    color: #fff;
+    box-shadow: 0 0 10px $primary-color;
+    cursor: pointer;
+}
+
+.first-div-img{
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+}
+
+.last-div-img{
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+.dashboard-p{
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e9e9e9;
+}
+
+.my-card{
+    border: 1px solid #e9e9e9;
+    width: 70%;
+    box-shadow: 0 0 10px #e9e9e9;
+    border-radius: 20px;
+}
 </style>
