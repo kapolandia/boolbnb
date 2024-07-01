@@ -13,14 +13,17 @@ export default {
             hosts:[],
             //caricamento api
             hostIsLoading: true,
-            Popup: {},
+            UrlBase :window.location.origin,
+            
+            Popup: {
+            },
             
         }
     },
 
     methods:{
         GetHostFromApi() {
-            console.log(this.Popup.length);
+            console.log();
             axios.get(this.apiUrl + '/apartments')
             
             .then((response) => {
@@ -31,7 +34,7 @@ export default {
             });
         },
         GetPopup(host, event){
-            console.log(host);
+            console.log(this.UrlBase);
             
             this.Popup = host;
             console.log(this.Popup);
@@ -86,6 +89,7 @@ export default {
             <ShareProp 
             v-if="this.Popup.title != null" 
             :shareProp="Popup"
+            :UrlBase="UrlBase"
             @closePopup="ResetPopup()"
             >
             
