@@ -22,7 +22,7 @@ export default  {
 <template>
 
 <div class="container rounded-5 p-5 pb-2 align-items-center justify-content-center ">
-    <div class="row justify-content-center flex-column">
+    <div class="row justify-content-center flex-column ">
         <div>
             <i @click="$emit('closePopup')" class="fa-solid fa-close position-absolute"></i>
         </div>
@@ -54,7 +54,7 @@ export default  {
 .container{
     box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
     background-color: white;
-    height: 60vh;
+    
     width: 50%;
     position: absolute;
     top: 50%;
@@ -68,12 +68,13 @@ export default  {
     }
     .img-container{
         width: 100%;
-        min-height: 60%;
+        max-height: 60%;
         overflow: hidden;
         border-radius: 15px;
         img{
             
             width: 50%;
+            height: 100%;
             object-fit: cover;
         }
     }

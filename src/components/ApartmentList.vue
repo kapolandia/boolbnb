@@ -98,6 +98,7 @@ z-index: 0;
 .ms-card{
     display: flex;
     flex-direction: column;
+    height: 100%;
     .share-button{
         height: 30px;
         width: 30px;
@@ -112,6 +113,7 @@ z-index: 0;
     .img-container{
         width: 100%;
         height: 60%;
+        max-height: 150px;
         overflow: hidden;
         border-radius: 15px;
         img{
