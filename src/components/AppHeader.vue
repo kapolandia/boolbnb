@@ -1,6 +1,11 @@
 <script>
     export default{
         name: 'AppHeader',
+        data(){
+            return{
+                search: ''
+            }
+        }
     }
 </script>
 
@@ -13,8 +18,8 @@
             </a>
             <form role="search" class="search-wrapper d-none d-sm-block">
                 <div class="d-flex">
-                    <input class="form-control search-input" type="search" placeholder="Dove vuoi soggiornare?" aria-label="Search">
-                    <a class="btn search-btn"><i class="fa-solid fa-magnifying-glass"></i></a>
+                    <input class="form-control search-input"v-model="search" type="search" placeholder="Dove vuoi soggiornare?" aria-label="Search">
+                    <router-link :to=" this.search.length >0 ? {name: 'host-search', params: {'search' : search}} :'' " class="btn search-btn"><i class="fa-solid fa-magnifying-glass"></i></router-link>
                 </div>
             </form>
         </div>
