@@ -25,6 +25,10 @@
 <style lang="scss" scoped>
     header{
         border-bottom: 1px solid #e9e9e9;
+        position: fixed;
+        width: 100%;
+        z-index: 1;
+        background-color: #fff;
     }
 
     .search-input{

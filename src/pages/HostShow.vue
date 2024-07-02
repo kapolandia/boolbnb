@@ -26,7 +26,7 @@ import axios from 'axios';
 </script>
 
 <template>
-    <div class="container mt-5">
+    <div class="container">
         <div v-if="host">
             <div v-if="host.title">
                 <h2 class="fw-bold">{{ host.title }}</h2>
@@ -81,8 +81,8 @@ import axios from 'axios';
                 <div class="col-5 d-flex flex-column align-items-center">
                     <div class="my-card mt-5 p-4">
                         <div v-if="host.price">
-                            <p><span class="h4 fw-bold">{{ Math.floor(host.price) }} €</span>&nbsp; a notte</p>
-                            <a class="btn primary-btn mt-3">Prenota</a>
+                            <!-- <p><span class="h4 fw-bold">{{ Math.floor(host.price) }} €</span>&nbsp; a notte</p> -->
+                            <a class="btn primary-btn mt-3">Invia un messaggio</a>
                         </div>
                     </div>
                 </div>
