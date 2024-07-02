@@ -30,6 +30,7 @@ import axios from 'axios';
         <div v-if="host">
             <div v-if="host.title">
                 <h2 class="fw-bold">{{ host.title }}</h2>
+                <router-link :to="{name: 'index'}" class="breadcrumb text-secondary">Home / Torna indietro</router-link>
             </div>
             <div v-if="host.thumb" class="mt-4">
                 <!-- http://127.0.0.1:8000/storage/${host.thumb}     percorso alla cartella della api -->
@@ -147,5 +148,14 @@ import axios from 'axios';
     width: 70%;
     box-shadow: 0 0 10px #e9e9e9;
     border-radius: 20px;
+}
+
+.breadcrumb{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.breadcrumb:hover{
+    color: #212121 !important;
 }
 </style>
