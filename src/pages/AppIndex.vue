@@ -15,7 +15,7 @@
 
 <template>
   <main class="overflow-hidden">
-    <div class="container mt-5">
+    <div class="container header-margin">
     <HomeJumbotron></HomeJumbotron>
     <HomeHosts></HomeHosts>
   </div>
@@ -26,5 +26,4 @@
 </template>
 
 <style scoped>
-
 </style>

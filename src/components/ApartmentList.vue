@@ -37,15 +37,17 @@ export default {
             console.log(this.UrlBase);
             
             this.Popup = host;
+            document.body.style.overflow = 'hidden';
             console.log(this.Popup);
             
         },
         ResetPopup(){
-            this.Popup = {}
+            this.Popup = {};
+            document.body.style.overflow = '';
         }
     },
     mounted(){
-        this.GetHostFromApi()
+        this.GetHostFromApi();
     }
 }
 </script>
@@ -58,7 +60,7 @@ export default {
          v-if="!hostIsLoading"
          class="container text-center mt-4">
          <div class="my-border-bottom mb-5">
-             <h2 class="fw-bold">Per tutti i gusti <i class="fa-solid fa-house-circle-check primary-color"></i></h2>
+             <h2 class="fw-bold" id="section1">Per tutti i gusti <i class="fa-solid fa-house-circle-check primary-color"></i></h2>
              <p class="p-subtitle w-75 mx-auto">Che tu stia cercando un accogliente appartamento in centro, una villa spaziosa con giardino, o una tranquilla casa di campagna, siamo certi che abbiamo la soluzione giusta per te.</p>
             </div>
             <div class="row">

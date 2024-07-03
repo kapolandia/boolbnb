@@ -10,6 +10,12 @@ import AppFooter from './components/AppFooter.vue'
   <AppFooter></AppFooter>
 </template>
 
-<style scoped>
+<style lang="scss">
+  .header-margin{
+    margin-top: 130px;
+  }
 
+  html{
+    scroll-behavior: smooth;
+  }
 </style>
