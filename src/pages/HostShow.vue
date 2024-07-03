@@ -60,7 +60,13 @@ export default {
                     console.error('Map container not found.');
                 }
             }
+            
         },
+
+        /* verifica path immagini per capire se sono state inserite da db (url) o caricate dall'utente */ 
+        isURL(str) {
+            return str.startsWith('http://') || str.startsWith('https://')
+        }
     },
 
     mounted() {
@@ -80,10 +86,12 @@ export default {
                 <div v-if="host.thumb" class="mt-4">
                     <div class="row m-0">
                         <div class="col-6 overflow-hidden first-div-img p-0">
-                            <img :src="host.thumb" alt="non funziona il link" class="w-100 h-100">
+                            <img v-if="isURL(host.thumb)" :src="host.thumb" alt="Immagine non disponibile" class="w-100 h-100">
+                            <img v-else :src="'http://127.0.0.1:8000/api/' + host.thumb" alt="Immagine alternativa" class="w-100 h-100">
                         </div>
                         <div v-for="image in host.images" class="image-container">
-                            <img class=" pe-0" :src="'http://127.0.0.1:8000/api/'+ image.image" alt="">
+                            <img v-if="isURL(image.image)" :src="image.image" alt="Immagine non disponibile" class="w-100 h-100">
+                            <img v-else :src="'http://127.0.0.1:8000/api/' + image.image" alt="Immagine alternativa" class="w-100 h-100">
                         </div>
                     </div>
                 </div>

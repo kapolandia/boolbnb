@@ -14,6 +14,10 @@ export default  {
   methods:{
     copyText(){
         navigator.clipboard.writeText(this.linkApartment);
+    },
+    /* verifica path immagini per capire se sono state inserite da db (url) o caricate dall'utente */ 
+    isURL(str) {
+        return str.startsWith('http://') || str.startsWith('https://')
     }
   }
 }
@@ -26,15 +30,14 @@ export default  {
         <div>
             <i @click="$emit('closePopup')" class="fa-solid fa-close position-absolute my-x"></i>
         </div>
-        <div class="text-start">
-            <h6 class="fw-bold mt-2">
-                {{ shareProp.title }}
-            </h6>
+        <div class="text-center">
+            <h6 class="fw-bold mt-2">{{ shareProp.title }}</h6>
         </div>
         <div class="img-container mt-4"> 
-            <img :src="'http://127.0.0.1:8000/api/'+shareProp.thumb" alt="">
+            <img v-if="isURL(shareProp.thumb)" :src="shareProp.thumb" alt="Immagine non disponibile" class="w-100 h-100">
+            <img v-else :src="'http://127.0.0.1:8000/api/' + shareProp.thumb" alt="Immagine alternativa" class="w-100 h-100">
         </div>
-        <div class="mt-5 w-100">
+        <div class="mt-2 w-100">
             <div class="link-wrapper d-flex align-items-center justify-content-between mt-3 p-2 ps-3">
             {{linkApartment}}
                 <button class="copy" @click="copyText()">
