@@ -27,7 +27,7 @@ export default{
             this.Popup = {};
             document.body.style.overflow = '';
         }
-        console.log('da rimuovere');
+        
         }
     }
 </script>
