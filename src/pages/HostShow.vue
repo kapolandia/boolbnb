@@ -1,28 +1,54 @@
-
 <script>
+import { tt } from '@tomtom-international/web-sdk-maps';
 import axios from 'axios';
-    export default {
-        name: 'HostShow',
-        
-        data(){
 
-            return{
-                host: null
-            }
-        },
-        methods: {
-            getHost(){
-                axios.get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.slug}`)
+export default {
+    name: 'HostShow',
+
+    data() {
+        return {
+            host: null,
+            map1: null,
+            marker: null, 
+            apiKey: '3AC1MRPiIv2a942lYsYeHx621M3GAx0y' 
+        };
+    },
+    methods: {
+
+        getHost() {
+            axios.get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.slug}`)
                 .then((response) => {
-                this.host= response.data.results;
-                
-            });
+                    this.host = response.data.results;
+                    if (this.host.latitude && this.host.longitude) {
+                        console.log("Latitude:", this.host.latitude, "Longitude:", this.host.longitude);
+                        this.initMap(this.host.latitude, this.host.longitude);
+                    } else {
+                        console.error('Latitude and/or longitude not provided in host data.');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error fetching the host:', error);
+                });
+        },
+
+        initMap(latitude, longitude) {
+            if (!this.map) {
+                this.map = tt.map({
+                    key: this.apiKey,
+                    container: 'map',
+                    center: [longitude, latitude],
+                    zoom: 15
+                });
+
+                this.marker = new tt.Marker().setLngLat([longitude, latitude]).addTo(this.map);
             }
         },
-        mounted(){
-            this.getHost()
-        }
+    },
+
+    mounted() {
+        this.getHost();
     }
+};
 </script>
 
 <template>
@@ -37,7 +63,7 @@ import axios from 'axios';
                     <!-- http://127.0.0.1:8000/storage/${host.thumb}     percorso alla cartella della api -->
                     <div class="row m-0">
                         <div class="col-6 overflow-hidden first-div-img p-0">
-                            <img src="https://a0.muscache.com/im/pictures/c74e5b95-8877-4c9a-8a9a-423c4db4cdd7.jpg?im_w=1200" alt="non funziona il link" class="w-100 h-100">
+                            <img :src="host.thumb" alt="non funziona il link" class="w-100 h-100">
                         </div>
                         
                         <div 
@@ -77,6 +103,10 @@ import axios from 'axios';
                         
                     </div>
                 </div>
+                <div class="mt-3">
+                    <div id="map" style="width: 100%; height: 400px;"></div>
+                </div>
+
                     </div>
 
                     <div class="col-5 d-flex flex-column align-items-center">
@@ -159,5 +189,9 @@ import axios from 'axios';
 
 .breadcrumb:hover{
     color: #212121 !important;
+}
+
+#map {
+    width: 100%;
 }
 </style>
