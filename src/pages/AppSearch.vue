@@ -1,12 +1,128 @@
 <script>
+import { store } from '../store';
+import ShareProp from '../components/ShareProp.vue';
 export default{
         name: 'AppSearch',
+        components:{
+            ShareProp
+        },
         data(){
+            return{
+                store,
+                UrlBase :window.location.origin,
             
+                Popup: {},
+            }
+        },
+        methods:{
+            GetPopup(host, event){
+            console.log(this.UrlBase);
+            
+            this.Popup = host;
+            document.body.style.overflow = 'hidden';
+            console.log(this.Popup);
+            
+        },
+        ResetPopup(){
+            this.Popup = {};
+            document.body.style.overflow = '';
+        }
         }
     }
 </script>
 <template>
-    ciao sono app search
+    <section class="d-flex">
+
+        <aside>
+            <div class="aside">
+                filtri
+            </div>
+        </aside>
+        <div class="container">
+            <div class="row">
+                <div
+                v-for="apartment in store.apartments"
+                class="col-3 my-2">
+                <router-link class="text-decoration-none text-black position-relative" :to="{name: 'host-show', params: {'slug' : apartment.slug}}">
+                    <div class="ms-card text-start">
+                        <div class="img-container position-relative my-2">
+                            <div @click.prevent="GetPopup(apartment)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+                            <img :src="'http://127.0.0.1:8000/api/'+ apartment.thumb" alt="">
+                        </div>
+                        <h6 class="mt-3 fw-bold">{{ apartment.title }}</h6>
+                        <p class="text-secondary mb-0">Host: azienda specializzata</p>
+                        <p ><strong>{{ Math.floor(apartment.price) }} €</strong> a notte</p>
+                    </div>
+                </router-link>
+                
+            </div>
+            <ShareProp 
+            v-if="this.Popup.title != null" 
+            :shareProp="Popup"
+            :UrlBase="UrlBase"
+            @closePopup="ResetPopup()"
+            >
+            
+            </ShareProp>
+        </div>
+        </div>
+    </section>
 </template>
-<style></style>
+
+<style lang='scss' scoped>
+aside{
+    border-right:1px solid #e9e9e9;
+}
+aside, .aside{
+    width: 200px;
+    height: calc(100vh - 67.45px - 164.73px)
+}
+footer{
+    margin-top:0;
+}
+
+router-link{
+z-index: 0;
+}
+.ms-card{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .share-button{
+        height: 30px;
+        width: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top:10px;
+        right: 10px;
+        background-color: rgba($color: lightgrey, $alpha: 0.7);
+        z-index: 1;
+    }
+    .img-container{
+        width: 100%;
+        height: 60%;
+        max-height: 150px;
+        overflow: hidden;
+        border-radius: 15px;
+        img{
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+    .primary-color{
+        color: $primary-color;
+    }
+
+    .p-subtitle{
+        font-size: 18px;
+    }
+
+    .my-border-bottom{
+        border-bottom: 1px solid #e9e9e9;
+        padding-bottom: 10px;
+    }
+</style>

@@ -80,7 +80,7 @@ export default {
                 <div v-if="host.thumb" class="mt-4">
                     <div class="row m-0">
                         <div class="col-6 overflow-hidden first-div-img p-0">
-                            <img :src="host.thumb" alt="non funziona il link" class="w-100 h-100">
+                            <img :src="'http://127.0.0.1:8000/api/'+host.thumb" alt="non funziona il link" class="w-100 h-100">
                         </div>
                         <div v-for="image in host.images" class="image-container">
                             <img class=" pe-0" :src="'http://127.0.0.1:8000/api/'+ image.image" alt="">
