@@ -1,12 +1,71 @@
 <script>
-    export default{
-        name: 'AppHeader',
-        data(){
-            return{
-                search: ''
+import axios from 'axios';
+import { tt } from '@tomtom-international/web-sdk-maps';
+
+export default {
+  name: 'AppHeader',
+  data() {
+    return {
+      searchQuery: '',
+      searchResults: [],
+      selectedLocation: {
+        lat: null,
+        lon: null
+      },
+      selectedResult: null,
+    };
+  },
+  methods: {
+    async fetchSuggestions(query) {
+      try {
+        const response = await axios.get('https://api.tomtom.com/search/2/search/' + encodeURIComponent(query) + '.json', {
+          params: {
+            key: '3AC1MRPiIv2a942lYsYeHx621M3GAx0y'
+          }
+        });
+        this.searchResults = response.data.results;
+      } catch (error) {
+        console.error('Errore durante la ricerca:', error);
+      }
+    },
+    handleInputChange() {
+      if (this.searchQuery.length > 2) {
+        this.fetchSuggestions(this.searchQuery);
+      } else {
+        this.searchResults = [];
+      }
+    },
+    selectResult(result) {
+      if(result != null){
+        this.selectedResult = result;
+      }
+      this.searchQuery = this.selectedResult.address.freeformAddress;
+      this.selectedLocation.lat = this.selectedResult.position.lat;
+      this.selectedLocation.lon = this.selectedResult.position.lon;
+
+      console.log('Nome ricerca', this.searchQuery, 'Latitudine:', this.selectedLocation.lat, 'Longitudine:', this.selectedLocation.lon);
+
+      this.searchResults = []; // Nascondi i suggerimenti dopo la selezione
+    },
+    searchApi(){
+        this.selectResult();
+        console.log(this.selectedLocation.lat);
+        console.log(this.selectedLocation.lon);
+        axios.get('http://127.0.0.1:8000/api/search', {
+            params: {
+                longitude: this.selectedLocation.lon,
+                latitude: this.selectedLocation.lat,
             }
-        }
-    }
+        })
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+            }
+  }
+};
 </script>
 
 <template>
@@ -18,8 +77,8 @@
             </a>
             <form role="search" class="search-wrapper d-none d-sm-block">
                 <div class="d-flex">
-                    <input class="form-control search-input"v-model="search" type="search" placeholder="Dove vuoi soggiornare?" aria-label="Search">
-                    <router-link :to=" this.search.length >0 ? {name: 'host-search', params: {'search' : search}} :'' " class="btn search-btn"><i class="fa-solid fa-magnifying-glass"></i></router-link>
+                    <input class="form-control search-input" type="search" placeholder="Dove vuoi soggiornare?" aria-label="Search">
+                    <a class="btn search-btn"><i class="fa-solid fa-magnifying-glass"></i></a>
                 </div>
             </form>
         </div>
@@ -30,15 +89,21 @@
 <style lang="scss" scoped>
     header{
         border-bottom: 1px solid #e9e9e9;
+        position: fixed;
+        width: 100%;
+        z-index: 2;
+        background-color: #fff;
     }
 
     .search-input{
-        border: none;
+        border: none !important;
         width: 250px;
     }
 
     .search-input:focus{
         box-shadow: none;
+        outline: none;
+        border: none !important;
     }
 
     .search-btn{
@@ -69,5 +134,20 @@
         border:1px solid #e9e9e9;
         padding: 5px 16px;
         border-radius: 30px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        padding: 8px;
+        cursor: pointer;
+    }
+
+    li:hover {
+        background-color: #f0f0f0;
     }
 </style>
