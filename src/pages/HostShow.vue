@@ -127,6 +127,10 @@ export default {
 .image-container:nth-of-type(1){
     overflow: hidden;
 }
+
+svg{
+    fill: $primary-color;
+}
 .image-container{
     width: 50%;
     :first-of-type{
