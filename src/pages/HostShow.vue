@@ -1,15 +1,21 @@
 <script>
 import tt from '@tomtom-international/web-sdk-maps';
 import axios from 'axios';
+import AppMessage from '../components/AppMessage.vue';
+
 
 export default {
     name: 'HostShow',
+    components: {
+        AppMessage,
+    },
 
     data() {
         return {
             host: null,
             map: null,
-            apiKey: '3AC1MRPiIv2a942lYsYeHx621M3GAx0y'
+            apiKey: '3AC1MRPiIv2a942lYsYeHx621M3GAx0y',
+            showAppMessage: false
         };
     },
     methods: {
@@ -113,8 +119,11 @@ export default {
                     <div class="col-5 d-flex flex-column align-items-center">
                         <div class="my-card mt-5 p-4">
                             <div v-if="host.price">
-                                <a class="btn primary-btn mt-3">Invia un messaggio</a>
+                                <a class="btn primary-btn mt-3" @click="showAppMessage = true">Invia un messaggio</a>
                             </div>
+                        </div>
+                        <div v-if="showAppMessage">
+                            <AppMessage :apartmentId="host.id" />
                         </div>
                     </div>
                 </div>
