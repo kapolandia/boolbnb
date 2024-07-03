@@ -44,6 +44,10 @@ export default {
         ResetPopup(){
             this.Popup = {};
             document.body.style.overflow = '';
+        },
+        /* verifica path immagini per capire se sono state inserite da db (url) o caricate dall'utente */ 
+        isURL(str) {
+            return str.startsWith('http://') || str.startsWith('https://')
         }
     },
     mounted(){
@@ -71,7 +75,8 @@ export default {
                     <div class="ms-card text-start">
                         <div class="img-container position-relative my-2">
                             <div @click.prevent="GetPopup(host)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
-                            <img :src="'http://127.0.0.1:8000/api/'+ host.thumb" alt="">
+                            <img v-if="isURL(host.thumb)" :src="host.thumb" alt="Immagine non disponibile" class="w-100 h-100">
+                            <img v-else :src="'http://127.0.0.1:8000/api/' + host.thumb" alt="Immagine alternativa" class="w-100 h-100">
                         </div>
                         <h6 class="mt-3 fw-bold">{{ host.title }}</h6>
                         <p class="text-secondary mb-0">Host: azienda specializzata</p>
@@ -138,4 +143,5 @@ z-index: 0;
         border-bottom: 1px solid #e9e9e9;
         padding-bottom: 10px;
     }
+
 </style>

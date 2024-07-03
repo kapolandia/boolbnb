@@ -98,6 +98,12 @@ export default {
                         <router-link :to="searchQuery !=''? {name: 'host-search', params: {'search' : searchQuery}} : ''" type="submit" class="btn search-btn" @click="searchApi()"><i class="fa-solid fa-magnifying-glass"></i></router-link>
                     </div>
                 </form>
+                <div id="login" class="btn">
+                  <a href="http://127.0.0.1:8000/login"> 
+                    <span class="me-2">Login</span>
+                    <i class="fa-solid fa-user-tie fs-4"></i>
+                  </a>
+                </div>
             </div>
         </nav>
     </header>
@@ -151,6 +157,21 @@ export default {
         border:1px solid #e9e9e9;
         padding: 5px 16px;
         border-radius: 30px;
+    }
+
+    #login{
+      background-color: $primary-color;
+      padding: 10px;
+
+      span{
+        color: white;
+      }
+
+      a{
+        text-decoration: none;
+        /* color: #FF5A5E; */
+        color: white;
+      }
     }
 
     ul {
