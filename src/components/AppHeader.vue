@@ -98,7 +98,7 @@ export default {
         border-bottom: 1px solid #e9e9e9;
         position: fixed;
         width: 100%;
-        z-index: 1;
+        z-index: 2;
         background-color: #fff;
     }
 
