@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios';
+import { tt } from '@tomtom-international/web-sdk-maps';
 
 export default {
   name: 'AppHeader',
@@ -10,7 +11,8 @@ export default {
       selectedLocation: {
         lat: null,
         lon: null
-      }
+      },
+      selectedResult: null,
     };
   },
   methods: {
@@ -34,14 +36,34 @@ export default {
       }
     },
     selectResult(result) {
-      this.searchQuery = result.address.freeformAddress;
-      this.selectedLocation.lat = result.position.lat;
-      this.selectedLocation.lon = result.position.lon;
+      if(result != null){
+        this.selectedResult = result;
+      }
+      this.searchQuery = this.selectedResult.address.freeformAddress;
+      this.selectedLocation.lat = this.selectedResult.position.lat;
+      this.selectedLocation.lon = this.selectedResult.position.lon;
 
       console.log('Nome ricerca', this.searchQuery, 'Latitudine:', this.selectedLocation.lat, 'Longitudine:', this.selectedLocation.lon);
 
       this.searchResults = []; // Nascondi i suggerimenti dopo la selezione
-    }
+    },
+    searchApi(){
+        this.selectResult();
+        console.log(this.selectedLocation.lat);
+        console.log(this.selectedLocation.lon);
+        axios.get('http://127.0.0.1:8000/api/search', {
+            params: {
+                longitude: this.selectedLocation.lon,
+                latitude: this.selectedLocation.lat,
+            }
+        })
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+            }
   }
 };
 </script>
@@ -56,14 +78,14 @@ export default {
                 <form role="search" class="search-wrapper d-none d-sm-block">
                     <div class="d-flex">
                         <div>
-                            <input v-model="searchQuery" class="search-input mt-2" placeholder="Cerca un luogo..." @input="handleInputChange">
+                            <input v-model="searchQuery" class="search-input mt-2" placeholder="Cerca un luogo..." @input="handleInputChange" @keydown.enter.prevent="searchApi">
                             <ul v-if="searchResults.length > 0">
                                 <li v-for="result in searchResults" :key="result.id" @click="selectResult(result)">
                                 {{ result.address.freeformAddress }}
                                 </li>
                             </ul>
                         </div>
-                        <button type="submit" class="btn search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <button type="submit" class="btn search-btn" @click="searchApi()"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </form>
             </div>
@@ -81,12 +103,14 @@ export default {
     }
 
     .search-input{
-        border: none;
+        border: none !important;
         width: 250px;
     }
 
     .search-input:focus{
         box-shadow: none;
+        outline: none;
+        border: none !important;
     }
 
     .search-btn{
