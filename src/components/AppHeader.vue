@@ -71,18 +71,25 @@ export default {
 <template>
     <header>
         <nav class="navbar">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="../assets/images/logo.png" alt="Boolbnb" width="150">
-            </a>
-            <form role="search" class="search-wrapper d-none d-sm-block">
-                <div class="d-flex">
-                    <input class="form-control search-input" type="search" placeholder="Dove vuoi soggiornare?" aria-label="Search">
-                    <a class="btn search-btn"><i class="fa-solid fa-magnifying-glass"></i></a>
-                </div>
-            </form>
-        </div>
-    </nav>
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="../assets/images/logo.png" alt="Boolbnb" width="150">
+                </a>
+                <form role="search" class="search-wrapper d-none d-sm-block">
+                    <div class="d-flex">
+                        <div>
+                            <input v-model="searchQuery" class="search-input mt-2" placeholder="Cerca un luogo..." @input="handleInputChange" @keydown.enter.prevent="searchApi">
+                            <ul v-if="searchResults.length > 0">
+                                <li v-for="result in searchResults" :key="result.id" @click="selectResult(result)">
+                                {{ result.address.freeformAddress }}
+                                </li>
+                            </ul>
+                        </div>
+                        <button type="submit" class="btn search-btn" @click="searchApi()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                </form>
+            </div>
+        </nav>
     </header>
 </template>
 
