@@ -1,6 +1,7 @@
 <script>
 import axios from 'axios';
 import { tt } from '@tomtom-international/web-sdk-maps';
+import{store} from '../store.js';
 
 export default {
   name: 'AppHeader',
@@ -48,6 +49,8 @@ export default {
       this.searchResults = []; // Nascondi i suggerimenti dopo la selezione
     },
     searchApi(){
+        //svuoto l'array nello store
+        store.apartments = []
         this.selectResult();
         console.log(this.selectedLocation.lat);
         console.log(this.selectedLocation.lon);
@@ -58,7 +61,14 @@ export default {
             }
         })
         .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
+            if(response.result = true){
+              
+              response.data.apartments.forEach(apartment => {
+                store.apartments.push(apartment);
+                console.log(store.apartments)
+              });
+            }
         })
         .catch(error => {
             console.error(error);
@@ -85,7 +95,7 @@ export default {
                                 </li>
                             </ul>
                         </div>
-                        <button type="submit" class="btn search-btn" @click="searchApi()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <router-link :to="searchQuery !=''? {name: 'host-search', params: {'search' : searchQuery}} : ''" type="submit" class="btn search-btn" @click="searchApi()"><i class="fa-solid fa-magnifying-glass"></i></router-link>
                     </div>
                 </form>
             </div>
