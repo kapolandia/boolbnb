@@ -87,6 +87,19 @@ export default {
     </div>
 </template>
 
-<style lang="scss">
-    
+<style lang="scss" scoped>
+    .primary-btn{
+        background-color: $primary-color;
+        color: #fff;
+        font-weight: 600;
+        padding: 16px 16px;
+        width: 100%;
+    }
+
+    .primary-btn:hover{
+        background-color: $primary-color;
+        color: #fff;
+        box-shadow: 0 0 10px $primary-color;
+        cursor: pointer;
+    }
 </style>
