@@ -26,9 +26,6 @@ export default{
         ResetPopup(){
             this.Popup = {};
             document.body.style.overflow = '';
-        },
-        isURL(str) {
-            return str.startsWith('http://') || str.startsWith('https://')
         }
         
         }
