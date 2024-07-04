@@ -15,6 +15,7 @@ export default {
             host: null,
             map: null,
             apiKey: '3AC1MRPiIv2a942lYsYeHx621M3GAx0y',
+            visitorIp: ''
         };
     },
     methods: {
@@ -73,9 +74,30 @@ export default {
             return str.startsWith('http://') || str.startsWith('https://')
         }
     },
-
+    
     mounted() {
         this.getHost();
+
+            // Ottieni l'indirizzo IP del visitatore
+        axios.get('https://api.ipify.org?format=json')
+        .then(response => {
+            this.visitorIp = response.data.ip;
+
+            // Invia l'indirizzo IP al server
+            axios.post('/api/save-visitor-ip', {
+            address_ip: this.visitorIp,
+            date_visit: new Date().toISOString()
+            })
+            .then(response => {
+            console.log('Indirizzo IP salvato con successo:', response.data);
+            })
+            .catch(error => {
+            console.error('Errore durante il salvataggio dell\'indirizzo IP:', error);
+            });
+        })
+        .catch(error => {
+            console.error('Errore durante l\'ottenimento dell\'indirizzo IP:', error);
+        });
     }
 };
 </script>
@@ -134,6 +156,9 @@ export default {
                                 <AppMessage :apartmentId="host.id"/>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        <p hidden>Indirizzo IP del visitatore: {{ visitorIp }}</p>
                     </div>
                 </div>
             </div>
