@@ -20,7 +20,7 @@
     <HomeHosts></HomeHosts>
   </div>
   <div class="container">
-    <ApartmentList></ApartmentList>
+    <ApartmentList></ApartmentList> 
   </div>
   </main>
 </template>
