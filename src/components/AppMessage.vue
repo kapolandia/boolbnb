@@ -62,19 +62,19 @@ export default {
     <div>
         <form @submit.prevent="submitForm">
             <div class="mb-3">
-                <label class="form-label" for="name">Nome:</label>
+                <label class="form-label" for="name">Nome</label>
                 <input class="form-control" placeholder="Inserisci il tuo nome" type="text" v-model="form.name" id="name" required>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="email">Email:</label>
+                <label class="form-label" for="email">Email</label>
                 <input class="form-control" placeholder="Inserisci la tua email" type="email" v-model="form.email" id="email" required :readonly="isAuthenticated">
             </div>
             <div class="mb-3">
-                <label class="form-label" for="object">Oggetto:</label>
+                <label class="form-label" for="object">Oggetto</label>
                 <input class="form-control" placeholder="Inserisci l'oggetto" type="text" v-model="form.object" id="object">
             </div>
             <div class="mb-3">
-                <label class="form-label" for="description">Messaggio:</label>
+                <label class="form-label" for="description">Messaggio</label>
                 <textarea class="form-control" rows="3" placeholder="Inserisci il messaggio" v-model="form.description" id="description" required></textarea>
             </div>
             <button type="submit" class="btn primary-btn">Invia messaggio</button>
