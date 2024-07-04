@@ -10,7 +10,11 @@ export default{
             return{
                 store,
                 UrlBase :window.location.origin,
-            
+                distance: 5,
+                bed: 1,
+                room: 1,
+                mq: 20,
+                services:[],
                 Popup: {},
             }
         },
@@ -22,6 +26,12 @@ export default{
             document.body.style.overflow = 'hidden';
             console.log(this.Popup);
             
+        },
+        GetDistance(){
+
+        },
+        consolelog(){
+            console.log(store.apartments); 
         },
         ResetPopup(){
             this.Popup = {};
@@ -39,40 +49,49 @@ export default{
 
         <aside>
             <div class="aside p-2">
-                
-                <h4>Servizi:</h4>
-                <div class="services">
-                    <div  class="d-flex my-2 "
+                <form action=""  method="get" @submit.prevent="submitForm">
+
+                    <h4>Servizi:</h4>
+                    <div class="services">
+                        <div  class="d-flex my-2 "
                     v-for="service in store.services">
-                    <input type="checkbox" class="me-2" :name="service.name" id="">
+                    <input  type="checkbox" class="me-2" :name="service.name" v-model="services" :id="service.name">
                     <label :for="service.name">{{ service.name }}</label>
-                    </div>
+                </div>
                 </div>
                 <div>
-                    <select class="me-2" name="bath" id="" >
+                    <select class="me-2" name="bath" v-model="bed" id="" >
+                    
                         <option
                         v-for="n in 5"
                         :value="n">{{ n }}</option>
                     </select>
-                    <label for="bath">Bagni</label>
+                    <label for="bath">Letti</label>
                 </div>
                 <div>
 
-                    <select class="me-2" name="room" id="" >
+                    <select class="me-2"  name="room" id="" v-model="room"  >
                         <option
                         v-for="n in 5"
                         :value="n">{{ n }}</option>
                     </select>
                     <label for="room">stanze</label>
                 </div>
+                <div class="distance">
+                    <input type="range" name="distance" min="5" @click="consolelog()"  max="50" id="" v-model="distance">
+                    {{ distance }}
+                </div>
+                <button type="submit">Cerca</button>
+            </form>
             </div>
         </aside>
         <div class="container">
             <div class="row">
                 <div
                 v-for="apartment in store.apartments"
+                v-show="room <= apartment.number_of_room && bed <= apartment.number_of_bed"
                 class="col-3 my-2">
-                <router-link class="text-decoration-none text-black position-relative" :to="{name: 'host-show', params: {'slug' : apartment.slug}}">
+                <router-link  class="text-decoration-none text-black position-relative" :to="{name: 'host-show', params: {'slug' : apartment.slug}}">
                     <div class="ms-card text-start">
                         <div class="img-container position-relative my-2">
                             <div @click.prevent="GetPopup(apartment)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
