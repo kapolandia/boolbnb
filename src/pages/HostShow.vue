@@ -15,7 +15,6 @@ export default {
             host: null,
             map: null,
             apiKey: '3AC1MRPiIv2a942lYsYeHx621M3GAx0y',
-            showAppMessage: false
         };
     },
     methods: {
@@ -83,7 +82,7 @@ export default {
 
 <template>
     <main class="overflow-hidden">
-        <div class="container header-margin">
+        <div class="container mt-5">
             <div v-if="host">
                 <div v-if="host.title">
                     <h2 class="fw-bold">{{ host.title }}</h2>
@@ -102,8 +101,8 @@ export default {
                     </div>
                 </div>
                 <div class="row ms-0">
-                    <div class="col-7">
-                        <div v-if="host.address" class="mt-5">
+                    <div class="col-lg-7 col-12">
+                        <div v-if="host.address" class="mt-4">
                             <h4 class="fw-bold">Stanza a {{ host.address }}</h4>
                         </div>
                         <p class="dashboard-p text-secondary">
@@ -112,26 +111,28 @@ export default {
                             {{ host.number_of_bath < 2 ? host.number_of_bath + ' bagno' : host.number_of_bath + ' bagni' }} &#183;
                             {{ host.square_meters }} m<sup>2</sup>
                         </p>
-                        <div v-if="host.description">
-                            <div>Descrizione:
-                                <div>
-                                    {{ host.description }}
-                                </div>
-                            </div>
+                        <div class="dashboard-p" v-if="host.description">
+                            <h5 class="mb-3">Descrizione:</h5>
+                            <p>{{ host.description }}</p>
                         </div>
-                        <div class="mt-3">
+                        <div class="my-3 dashboard-p">
+                            <h5 class="mb-3">Servizi:</h5>
+                            <ul id="ul-services">
+                                <li class="li-services mt-2" v-for="service in host.services" :key="service.id">
+                                    <i :class="service.icon"></i> {{ service.name }}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="my-3">
                             <!-- Use a ref to access this element -->
                             <div id="map" ref="mapContainer" style="width: 100%; height: 400px;"></div>
                         </div>
                     </div>
-                    <div class="col-5 d-flex flex-column align-items-center">
+                    <div class="col-lg-5  col-12 d-flex flex-column align-items-center">
                         <div class="my-card mt-5 p-4">
                             <div v-if="host.price">
-                                <a class="btn primary-btn mt-3" @click="showAppMessage = true">Invia un messaggio</a>
+                                <AppMessage :apartmentId="host.id"/>
                             </div>
-                        </div>
-                        <div v-if="showAppMessage">
-                            <AppMessage :apartmentId="host.id" />
                         </div>
                     </div>
                 </div>
@@ -140,7 +141,7 @@ export default {
     </main>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .image-container:nth-of-type(1){
     overflow: hidden;
 }
@@ -211,6 +212,11 @@ svg{
 
 #map {
     width: 100%;
+}
+
+#ul-services{
+    list-style-type: none;
+    padding: 0;
 }
 </style>
 
