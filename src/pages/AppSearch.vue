@@ -76,8 +76,8 @@ export default{
                     <div class="ms-card text-start">
                         <div class="img-container position-relative my-2">
                             <div @click.prevent="GetPopup(apartment)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
-                            <img v-if="isURL(host.thumb)" :src="host.thumb" alt="Immagine non disponibile" class="w-100 h-100">
-                            <img v-else :src="'http://127.0.0.1:8000/api/' + host.thumb" alt="Immagine alternativa" class="w-100 h-100">
+                            <img v-if="isURL(apartment.thumb)" :src="apartment.thumb" alt="Immagine non disponibile" class="w-100 h-100">
+                            <img v-else :src="'http://127.0.0.1:8000/api/' + apartment.thumb" alt="Immagine alternativa" class="w-100 h-100">
                         </div>
                         <h6 class="mt-3 fw-bold">{{ apartment.title }}</h6>
                         <p class="text-secondary mb-0">Host: azienda specializzata</p>
