@@ -112,13 +112,17 @@ export default {
                 </div>
                 <div v-if="host.thumb" class="mt-4">
                     <div class="row m-0">
-                        <div class="col-6 overflow-hidden first-div-img p-0">
+                        <div class="col-6 overflow-hidden first-div-img p-0 thumb-img">
                             <img v-if="isURL(host.thumb)" :src="host.thumb" alt="Immagine non disponibile" class="w-100 h-100">
                             <img v-else :src="'http://127.0.0.1:8000/api/' + host.thumb" alt="Immagine alternativa" class="w-100 h-100">
                         </div>
-                        <div v-for="image in host.images" class="image-container">
-                            <img v-if="isURL(image.image)" :src="image.image" alt="Immagine non disponibile" class="w-100 h-100">
-                            <img v-else :src="'http://127.0.0.1:8000/api/' + image.image" alt="Immagine alternativa" class="w-100 h-100">
+                        <div class="col-6 ps-2">
+                            <div class="row ps-0 g-2">
+                                <div v-for="image in host.images" class="image-container p-0">
+                                    <img v-if="isURL(image.image)" :src="image.image" alt="Immagine non disponibile" class="w-100 h-100">
+                                    <img v-else :src="'http://127.0.0.1:8000/api/' + image.image" alt="Immagine alternativa" class="w-100 h-100">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -134,11 +138,11 @@ export default {
                             {{ host.square_meters }} m<sup>2</sup>
                         </p>
                         <div class="dashboard-p" v-if="host.description">
-                            <h5 class="mb-3">Descrizione:</h5>
+                            <h5 class="mb-3 fw-bold">Cosa ti aspetta</h5>
                             <p>{{ host.description }}</p>
                         </div>
                         <div class="my-3 dashboard-p">
-                            <h5 class="mb-3">Servizi:</h5>
+                            <h5 class="mb-3 fw-bold">Servizi disponibili</h5>
                             <ul id="ul-services">
                                 <li class="li-services mt-2" v-for="service in host.services" :key="service.id">
                                     <i :class="service.icon"></i> {{ service.name }}
@@ -146,7 +150,7 @@ export default {
                             </ul>
                         </div>
                         <div class="my-3">
-                            <!-- Use a ref to access this element -->
+                            <h5 class="mb-3 fw-bold">Dove si trova</h5>
                             <div id="map" ref="mapContainer" style="width: 100%; height: 400px;"></div>
                         </div>
                     </div>
@@ -167,21 +171,38 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.image-container:nth-of-type(1){
+
+.thumb-img{
+    padding-right: 20px;
+}
+
+.image-container{
     overflow: hidden;
 }
 
-svg{
-    fill: $primary-color;
+.image-container:nth-of-type(1){
+    padding-right: 5px !important;
 }
+
+.image-container:nth-of-type(2){
+    padding-left: 5px !important;
+    border-top-right-radius: 16px;
+}
+
+.image-container:nth-of-type(3){
+    padding-right: 5px !important;
+}
+
+.image-container:nth-of-type(4){
+    padding-left: 5px !important;
+    border-bottom-right-radius: 16px;
+}
+
 .image-container{
     width: 50%;
-    :first-of-type{
-        border-top-right-radius: 16px;
-        border-bottom-right-radius: 16px;
-    }
     img{
         width: 100%;
+        object-fit: cover;
     }
 }
 
