@@ -12,7 +12,7 @@ import AppFooter from './components/AppFooter.vue'
 
 <style lang="scss">
   .header-margin{
-    margin-top: 130px;
+    margin-top: 100px;
   }
 
   html{
