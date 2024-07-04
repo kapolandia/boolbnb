@@ -23,7 +23,6 @@
     footer{
         border-top: 1px solid #e9e9e9;
         padding: 20px;
-        margin-top: 100px;
     }
 
     p:hover{

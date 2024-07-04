@@ -35,8 +35,33 @@ export default{
     <section class="d-flex">
 
         <aside>
-            <div class="aside">
-                filtri
+            <div class="aside p-2">
+                
+                <h4>Servizi:</h4>
+                <div class="services">
+                    <div  class="d-flex my-2 "
+                    v-for="service in store.services">
+                    <input type="checkbox" class="me-2" :name="service.name" id="">
+                    <label :for="service.name">{{ service.name }}</label>
+                    </div>
+                </div>
+                <div>
+                    <select class="me-2" name="bath" id="" >
+                        <option
+                        v-for="n in 5"
+                        :value="n">{{ n }}</option>
+                    </select>
+                    <label for="bath">Bagni</label>
+                </div>
+                <div>
+
+                    <select class="me-2" name="room" id="" >
+                        <option
+                        v-for="n in 5"
+                        :value="n">{{ n }}</option>
+                    </select>
+                    <label for="room">stanze</label>
+                </div>
             </div>
         </aside>
         <div class="container">
@@ -75,8 +100,16 @@ aside{
     border-right:1px solid #e9e9e9;
 }
 aside, .aside{
-    width: 200px;
-    height: calc(100vh - 67.45px - 164.73px)
+    width: 250px;
+    height: calc(100vh - 67.45px - 64.73px);
+}
+.aside{
+    overflow-y: auto;
+    .services{
+        height: 150px;
+        overflow-y: auto;
+    }
+
 }
 footer{
     margin-top:0;

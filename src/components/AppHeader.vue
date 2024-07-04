@@ -50,7 +50,7 @@ export default {
     },
     searchApi(){
         //svuoto l'array nello store
-        store.apartments = []
+        store.apartments = [];
         this.selectResult();
         console.log(this.selectedLocation.lat);
         console.log(this.selectedLocation.lon);
@@ -73,7 +73,20 @@ export default {
         .catch(error => {
             console.error(error);
         });
-            }
+            },
+           getServices(){
+            store.services= [];
+            axios.get('http://127.0.0.1:8000/api/services')
+            .then(response=>{
+              if(response.result = true){
+              
+              response.data.results.forEach(service => {
+                store.services.push(service);
+                console.log(store.services)
+              });
+            } 
+            })
+           } 
   }
 };
 </script>
@@ -90,7 +103,7 @@ export default {
                         <div>
                             <input v-model="searchQuery" class="search-input mt-2" placeholder="Cerca un luogo..." @input="handleInputChange" @keydown.enter.prevent="searchApi">
                             <ul v-if="searchResults.length > 0">
-                                <li v-for="result in searchResults" :key="result.id" @click="selectResult(result)">
+                                <li v-for="result in searchResults" :key="result.id" @click="selectResult(result), getServices()">
                                 {{ result.address.freeformAddress }}
                                 </li>
                             </ul>
