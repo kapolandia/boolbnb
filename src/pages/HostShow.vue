@@ -15,7 +15,6 @@ export default {
             host: null,
             map: null,
             apiKey: '3AC1MRPiIv2a942lYsYeHx621M3GAx0y',
-            showAppMessage: false
         };
     },
     methods: {
@@ -102,7 +101,7 @@ export default {
                     </div>
                 </div>
                 <div class="row ms-0">
-                    <div class="col-7">
+                    <div class="col-lg-7 col-12">
                         <div v-if="host.address" class="mt-5">
                             <h4 class="fw-bold">Stanza a {{ host.address }}</h4>
                         </div>
@@ -119,19 +118,16 @@ export default {
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-3">
+                        <div class="my-3">
                             <!-- Use a ref to access this element -->
                             <div id="map" ref="mapContainer" style="width: 100%; height: 400px;"></div>
                         </div>
                     </div>
-                    <div class="col-5 d-flex flex-column align-items-center">
+                    <div class="col-lg-5  col-12 d-flex flex-column align-items-center">
                         <div class="my-card mt-5 p-4">
                             <div v-if="host.price">
-                                <a class="btn primary-btn mt-3" @click="showAppMessage = true">Invia un messaggio</a>
+                                <AppMessage :apartmentId="host.id"/>
                             </div>
-                        </div>
-                        <div v-if="showAppMessage">
-                            <AppMessage :apartmentId="host.id" />
                         </div>
                     </div>
                 </div>
