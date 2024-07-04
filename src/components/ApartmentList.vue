@@ -10,92 +10,102 @@ export default {
     data() {
         return {
             apiUrl: 'http://127.0.0.1:8000/api',
-            hosts:[],
-            //caricamento api
+            hosts: [],
             hostIsLoading: true,
-            UrlBase :window.location.origin,
-            
-            Popup: {
-            },
-            
+            UrlBase: window.location.origin,
+            Popup: {},
+        };
+    },
+    computed: {
+        // Filtra gli appartamenti con visibility = 1
+        filteredApartments() {
+            return this.hosts.filter(host => host.visibility === 1);
+        },
+        // Filtra gli appartamenti visibility = 0
+        filteredAllApartments() {
+            return this.hosts.filter(host => host.visibility === 0);
         }
     },
-
-    methods:{
+    methods: {
         GetHostFromApi() {
-            console.log();
             axios.get(this.apiUrl + '/apartments')
-            
-            .then((response) => {
-                this.hosts = response.data.results;
-                console.log('minchia quante api');
-                this.hostIsLoading= false;
-                
-            });
+                .then((response) => {
+                    this.hosts = response.data.results;
+                    console.log('Dati degli appartamenti ricevuti:', this.hosts);
+                    this.hostIsLoading = false;
+                })
+                .catch(error => {
+                    console.error('Errore nel recupero degli appartamenti:', error);
+                });
         },
-        GetPopup(host, event){
-            console.log(this.UrlBase);
-            
+        GetPopup(host) {
             this.Popup = host;
             document.body.style.overflow = 'hidden';
-            console.log(this.Popup);
-            
         },
-        ResetPopup(){
+        ResetPopup() {
             this.Popup = {};
             document.body.style.overflow = '';
         },
-        /* verifica path immagini per capire se sono state inserite da db (url) o caricate dall'utente */ 
         isURL(str) {
-            return str.startsWith('http://') || str.startsWith('https://')
+            return str.startsWith('http://') || str.startsWith('https://');
         }
     },
-    mounted(){
+    mounted() {
         this.GetHostFromApi();
     }
-}
+};
 </script>
 
 <template>
-    <!-- display solo se il caricamento è finito -->
-     <section class="position-relative">
+    <section class="position-relative">
+        <div v-if="!hostIsLoading" class="container text-center mt-4">
+            <div class="my-border-bottom mb-5">
+                <h2 class="fw-bold" id="section1">Per tutti i gusti <i class="fa-solid fa-house-circle-check primary-color"></i></h2>
+                <p class="p-subtitle w-75 mx-auto">Che tu stia cercando un accogliente appartamento in centro, una villa spaziosa con giardino, o una tranquilla casa di campagna, siamo certi che abbiamo la soluzione giusta per te.</p>
+            </div>
 
-         <div 
-         v-if="!hostIsLoading"
-         class="container text-center mt-4">
-         <div class="my-border-bottom mb-5">
-             <h2 class="fw-bold" id="section1">Per tutti i gusti <i class="fa-solid fa-house-circle-check primary-color"></i></h2>
-             <p class="p-subtitle w-75 mx-auto">Che tu stia cercando un accogliente appartamento in centro, una villa spaziosa con giardino, o una tranquilla casa di campagna, siamo certi che abbiamo la soluzione giusta per te.</p>
-            </div>
+            <!-- Appartamenti sponsorizzati -->
             <div class="row">
-                <div
-                v-for="host in hosts"
-                class="col-3 my-2">
-                <router-link class="text-decoration-none text-black position-relative" :to="{name: 'host-show', params: {'slug' : host.slug}}">
-                    <div class="ms-card text-start">
-                        <div class="img-container position-relative my-2">
-                            <div @click.prevent="GetPopup(host)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
-                            <img v-if="isURL(host.thumb)" :src="host.thumb" alt="Immagine non disponibile" class="w-100 h-100">
-                            <img v-else :src="'http://127.0.0.1:8000/api/' + host.thumb" alt="Immagine alternativa" class="w-100 h-100">
+                <h3 class="text-start">Appartamenti sponsorizzati</h3>
+                <div v-for="host in filteredApartments" :key="host.id" class="col-3 my-2">
+                    <router-link class="text-decoration-none text-black position-relative" :to="{ name: 'host-show', params: { 'slug': host.slug } }">
+                        <div class="ms-card text-start">
+                            <div class="img-container position-relative my-2">
+                                <div @click.prevent="GetPopup(host)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+                                <img v-if="isURL(host.thumb)" :src="host.thumb" alt="Immagine non disponibile" class="w-100 h-100">
+                                <img v-else :src="'http://127.0.0.1:8000/api/' + host.thumb" alt="Immagine alternativa" class="w-100 h-100">
+                            </div>
+                            <h6 class="mt-3 fw-bold">{{ host.title }}</h6>
+                            <p class="text-secondary mb-0">Host: {{ host.user.name }} {{ host.user.surname }}</p>
+                            <p><strong>{{ Math.floor(host.price) }} €</strong> a notte</p>
                         </div>
-                        <h6 class="mt-3 fw-bold">{{ host.title }}</h6>
-                        <p class="text-secondary mb-0">Host: {{ host.user.name }} {{ host.user.surname }}</p>
-                        <p ><strong>{{ Math.floor(host.price) }} €</strong> a notte</p>
-                    </div>
-                </router-link>
-                
+                    </router-link>
+                </div>
             </div>
-            <ShareProp 
-            v-if="this.Popup.title != null" 
-            :shareProp="Popup"
-            :UrlBase="UrlBase"
-            @closePopup="ResetPopup()"
-            >
-            
-            </ShareProp>
+
+            <!-- Tutti gli appartamenti -->
+            <div class="row">
+                <h3 class="text-start">Appartamenti</h3>
+                <div v-for="host in filteredAllApartments" :key="host.id" class="col-3 my-2">
+                    <router-link class="text-decoration-none text-black position-relative" :to="{ name: 'host-show', params: { 'slug': host.slug } }">
+                        <div class="ms-card text-start">
+                            <div class="img-container position-relative my-2">
+                                <div @click.prevent="GetPopup(host)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+                                <img v-if="isURL(host.thumb)" :src="host.thumb" alt="Immagine non disponibile" class="w-100 h-100">
+                                <img v-else :src="'http://127.0.0.1:8000/api/' + host.thumb" alt="Immagine alternativa" class="w-100 h-100">
+                            </div>
+                            <h6 class="mt-3 fw-bold">{{ host.title }}</h6>
+                            <p class="text-secondary mb-0">Host: {{ host.user.name }} {{ host.user.surname }}</p>
+                            <p ><strong>{{ Math.floor(host.price) }} €</strong> a notte</p>
+                        </div>
+                    </router-link>
+                </div>
+            </div>
+
+            <!-- Componente per il popup -->
+            <ShareProp v-if="Popup.title != null" :shareProp="Popup" :UrlBase="UrlBase" @closePopup="ResetPopup()"></ShareProp>
         </div>
-    </div>
-</section>
+    </section>
 </template>
 
 <style lang="scss">
