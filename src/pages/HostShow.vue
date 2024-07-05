@@ -155,7 +155,7 @@ export default {
                         </div>
                     </div>
                     <div class="col-lg-5  col-12 d-flex flex-column align-items-center">
-                        <div class="my-card mt-5 p-4">
+                        <div class="my-card mt-5 p-4 mb-5">
                             <div v-if="host.price">
                                 <AppMessage :apartmentId="host.id"/>
                             </div>
