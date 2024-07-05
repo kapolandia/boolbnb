@@ -75,7 +75,7 @@ export default {
             </div>
             <div class="mb-3">
                 <label class="form-label" for="description">Messaggio</label>
-                <textarea class="form-control" rows="3" placeholder="Inserisci il messaggio" v-model="form.description" id="description" required></textarea>
+                <textarea class="form-control" rows="5" placeholder="Inserisci il messaggio" v-model="form.description" id="description" required></textarea>
             </div>
             <button type="submit" class="btn primary-btn">Invia messaggio</button>
             <div v-if="responseStatus" class="mt-3">
