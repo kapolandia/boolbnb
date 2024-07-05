@@ -43,17 +43,14 @@ export default {
       this.searchQuery = this.selectedResult.address.freeformAddress;
       this.selectedLocation.lat = this.selectedResult.position.lat;
       this.selectedLocation.lon = this.selectedResult.position.lon;
-
-      console.log('Nome ricerca', this.searchQuery, 'Latitudine:', this.selectedLocation.lat, 'Longitudine:', this.selectedLocation.lon);
-
+      store.longitude = this.selectedLocation.lon;
+      store.latitude = this.selectedLocation.lat;
       this.searchResults = []; // Nascondi i suggerimenti dopo la selezione
     },
     searchApi(){
         //svuoto l'array nello store
         store.apartments = [];
         this.selectResult();
-        console.log(this.selectedLocation.lat);
-        console.log(this.selectedLocation.lon);
         axios.get('http://127.0.0.1:8000/api/search', {
             params: {
                 longitude: this.selectedLocation.lon,
@@ -61,19 +58,17 @@ export default {
             }
         })
         .then(response => {
-            // console.log(response.data);
             if(response.result = true){
-              
               response.data.apartments.forEach(apartment => {
                 store.apartments.push(apartment);
-                console.log(store.apartments)
+                store.searchInput = this.searchQuery;
               });
             }
         })
         .catch(error => {
             console.error(error);
         });
-            },
+    },
            getServices(){
             store.services= [];
             axios.get('http://127.0.0.1:8000/api/services')
@@ -82,7 +77,6 @@ export default {
               
               response.data.results.forEach(service => {
                 store.services.push(service);
-                console.log(store.services)
               });
             } 
             })
@@ -111,8 +105,8 @@ export default {
                         <router-link :to="searchQuery !=''? {name: 'host-search', params: {'search' : searchQuery}} : ''" type="submit" class="btn search-btn" @click="searchApi()"><i class="fa-solid fa-magnifying-glass"></i></router-link>
                     </div>
                 </form>
-                <div id="login" class="btn primary-btn">
-                  <a href="http://127.0.0.1:8000/login">Login</a>
+                <div id="login" class="btn primary-btn" v-if="this.$route.name == 'index'">
+                  <a class="px-2" href="http://127.0.0.1:8000/login">Login</a>
                 </div>
             </div>
         </nav>

@@ -65,8 +65,8 @@ export default {
             </div>
 
             <!-- Appartamenti sponsorizzati -->
-            <div class="row">
-                <h3 class="text-start">Appartamenti in evidenza</h3>
+            <div class="row mb-5">
+                <h3 class="text-start fw-bold">Appartamenti in <span class="primary-color">evidenza</span></h3>
                 <div v-for="host in filteredApartments" :key="host.id" class="col-3 my-2">
                     <router-link class="text-decoration-none text-black position-relative" :to="{ name: 'host-show', params: { 'slug': host.slug } }">
                         <div class="ms-card text-start">
@@ -85,7 +85,7 @@ export default {
 
             <!-- Tutti gli appartamenti -->
             <div class="row">
-                <h3 class="text-start">Appartamenti</h3>
+                <h3 class="text-start fw-bold">Le nostre case</h3>
                 <div v-for="host in filteredAllApartments" :key="host.id" class="col-3 my-2">
                     <router-link class="text-decoration-none text-black position-relative" :to="{ name: 'host-show', params: { 'slug': host.slug } }">
                         <div class="ms-card text-start">

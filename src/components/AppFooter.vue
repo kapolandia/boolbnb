@@ -5,7 +5,7 @@
 </script>
 
 <template>
-    <footer class="d-flex justify-content-center">
+    <footer class="d-flex justify-content-center mt-5">
         <div class="container row ">
             <div class="col-4">©2024 &nbsp;<span class="fw-bold">Boolbnb</span>, Inc.</div>
             <div class="col-4 text-center">
