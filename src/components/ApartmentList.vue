@@ -66,7 +66,7 @@ export default {
 
             <!-- Appartamenti sponsorizzati -->
             <div class="row">
-                <h3 class="text-start">Appartamenti sponsorizzati</h3>
+                <h3 class="text-start">Appartamenti in evidenza</h3>
                 <div v-for="host in filteredApartments" :key="host.id" class="col-3 my-2">
                     <router-link class="text-decoration-none text-black position-relative" :to="{ name: 'host-show', params: { 'slug': host.slug } }">
                         <div class="ms-card text-start">
