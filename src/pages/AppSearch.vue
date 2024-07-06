@@ -30,31 +30,44 @@ export default{
             },
 
             searchApi(){
-                let trueDistance = this.distance * 1000;
-                store.apartments = [];
-                axios.get('http://127.0.0.1:8000/api/search', {
-                    params: {
-                        longitude: store.longitude,
-                        latitude: store.latitude,
-                        distance: trueDistance,
-                    }
-                })
-                .then(response => {
-                    console.log(response);
-                    if(response.result = true){
-                    response.data.apartments.forEach(apartment => {
-                        store.apartments.push(apartment);
-                        store.searchInput = this.searchQuery;
+                if(this.distance != 20){
+                    let trueDistance = this.distance * 1000;
+                    store.apartments = [];
+                    axios.get('http://127.0.0.1:8000/api/search', {
+                        params: {
+                            longitude: store.longitude,
+                            latitude: store.latitude,
+                            distance: trueDistance,
+                        }
+                    })
+                    .then(response => {
+                        console.log(response);
+                        if(response.result = true){
+                        response.data.apartments.forEach(apartment => {
+                            store.apartments.push(apartment);
+                            store.searchInput = this.searchQuery;
+                        });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
                     });
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+                }
             },
 
             consolelog(){
                 console.log(store.apartments); 
+            },
+
+            logServices(){
+                console.log(this.services);
+            },
+
+            clearFilters(){
+                this.services = [];
+                this.bed = 1;
+                this.room = 1;
+                this.distance = 20;
             },
 
             ResetPopup(){
@@ -65,17 +78,24 @@ export default{
             isURL(str) {
                 return str.startsWith('http://') || str.startsWith('https://')
             },
+
+            matchesSelectedServices(apartment) {
+                const selectedServiceIds = this.services;
+                const apartmentServiceIds = apartment.services.map(service => service.id);
+
+                return selectedServiceIds.every(serviceId => apartmentServiceIds.includes(serviceId));
+            },
         },
         mounted(){
-            console.log(store.longitude);
-            console.log(store.latitude);
+            console.log(store.apartments);
+            this.clearFilters();
         }
     }
 </script>
 <template>
     <div class="container mt-3">
         <div class="d-flex justify-content-between">
-            <h3 class="h3 fw-bold">Stai cercando case a {{ store.searchInput }}</h3>
+            <h5 class="h5 fw-bold mb-0">Risultati per case a {{ store.searchInput }}</h5>
             <button v-if="this.$route.name == 'host-search'" class="btn btn-outline-dark px-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Filtri <i class="fa-solid fa-sliders ms-2"></i>
             </button>
@@ -129,7 +149,7 @@ export default{
             <div class="row">
                 <div
                 v-for="apartment in store.apartments"
-                v-show="room <= apartment.number_of_room && bed <= apartment.number_of_bed"
+                v-show="room <= apartment.number_of_room && bed <= apartment.number_of_bed && matchesSelectedServices(apartment)"
                 class="col-3 my-2">
                 <router-link  class="text-decoration-none text-black position-relative" :to="{name: 'host-show', params: {'slug' : apartment.slug}}">
                     <div class="ms-card text-start">
@@ -193,7 +213,7 @@ export default{
                             <h5 class="h5 fw-bold">Servizi necessari</h5>
                             <div class="services">
                                 <div  class="my-2" v-for="service in store.services" :key="service.id">
-                                    <input  type="checkbox" class="me-3 form-check-input" :name="service.name" :id="service.name">
+                                    <input  type="checkbox" class="me-3 form-check-input" :name="service.name" :id="service.id" v-model="services" :value="service.id" @click="logServices()">
                                     <label :for="service.name"><i :class="service.icon"></i> <span class="ms-1">{{ service.name }}</span></label>
                                 </div>
                             </div>
@@ -201,6 +221,7 @@ export default{
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal" @click="clearFilters()">Cancella filtri</button>
                     <button type="submit" class="btn btn-dark" data-bs-dismiss="modal" @click="searchApi()">Applica filtri</button>
                 </div>
                 </div>
