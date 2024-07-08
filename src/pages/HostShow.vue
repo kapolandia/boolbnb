@@ -111,7 +111,7 @@ export default {
                     <h2 class="fw-bold">{{ host.title }}</h2>
                     <router-link :to="{name: 'index'}" class="breadcrumb text-secondary">Home / Torna indietro</router-link>
                 </div>
-                <div v-if="host.thumb" class="ms-container d-none d-md-block mt-4">
+                <div v-if="host.thumb" class="ms-container d-none d-lg-block mt-4">
                     <div class="row h-100 m-0 my-row" >
                         <div class="col-6 overflow-hidden h-100 p-0 thumb-img">
                             <img v-if="isURL(host.thumb)" :src="host.thumb" alt="Immagine non disponibile" class="w-100 h-100">
@@ -127,8 +127,8 @@ export default {
                         </div>
                     </div>
                 </div>
-                <!-- CAROSELLO MOBILE -->
-                 <div class="d-md-none mobile-carousel ">
+                <!-- CAROSELLO MOBILE - TABLET -->
+                 <div class="d-lg-none mobile-carousel ">
                     <div id="carouselExample" class=" carousel slide carousel h-100">
                         <div class="carousel-inner h-100 ">
                             <div v-if="host.thumb" class="carousel-item active h-100">
@@ -149,7 +149,7 @@ export default {
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
-                        <!-- /CAROSELLO MOBILE -->
+                        <!-- /CAROSELLO MOBILE - TABLET -->
                         </div>
                  </div>
                 <div class="row ms-0">
