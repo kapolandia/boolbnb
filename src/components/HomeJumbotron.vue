@@ -11,14 +11,14 @@
 
 <template>
     <div class="row">
-        <div class="col-6 position-relative">
+        <div class="col-sm-12 col-md-6 position-relative">
             <h1 class="h1 fw-bolder display-4">Il soggiorno <span class="primary-color">perfetto</span> ovunque tu vada.</h1>
             <h5 class="subtitle fw-bolder mt-5">Scopri le nostre case da sogno</h5>
             <a class="btn primary-btn mt-3" @click="scroll()">Trova la tua </a>
             <img src="../assets/images/scribble.png" alt="" srcset="" class="position-absolute scribble-1  d-sm-block d-lg-none" >
             <img src="../assets/images/scribble.png" alt="" srcset="" class="position-absolute scribble-2">
         </div>
-        <div class="col-6 position-relative">
+        <div class="col-sm-12 col-md-6 position-relative" >
             <div class="overflow-hidden rounded">
                 <img src="../assets/images/image.png" alt="" srcset="" class="w-100">
             </div>
@@ -81,5 +81,44 @@
         left: -20px;
         top: -70px;
         width: 100px;
+    }
+
+    .position-relative:last-of-type{
+        margin-top: 60px;
+    }
+
+    @media screen and (max-width: 767px) {
+        .scribble-1{
+            top: 50px;
+            left: -70px;
+        }
+
+        .sun{
+            right: -20px;
+            top: -70px;
+            width: 100px;
+        }
+    }
+
+    @media screen and (min-width: 992px) {
+        .position-relative:last-of-type{
+            margin-top: 0px;
+        }
+    }
+
+    @media screen and (max-width: 1199px) {
+        .scribble-2{
+            display: none;
+        }
+    }
+
+    @media screen and (min-width: 1399px) {
+        .scribble-2{
+            right: 80px;
+            bottom: -10px;
+            width: 70px;
+            transform: scaleX(-1);
+            rotate: -40deg;
+        }
     }
 </style>

@@ -90,9 +90,10 @@ export default {
         <nav class="navbar">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <img src="../assets/images/logo.png" alt="Boolbnb" width="150">
+                    <img src="../assets/images/logo.png" alt="Boolbnb" width="150" class="d-none d-md-block">
+                    <img src="../assets/images/mini-logo.png" alt="Boolbnb" width="40" class="d-block d-md-none">
                 </a>
-                <form role="search" class="search-wrapper d-none d-sm-block">
+                <form role="search" class="search-wrapper">
                     <div class="d-flex justify-content-between">
                         <div>
                             <input v-model="searchQuery" class="search-input mt-2" placeholder="Cerca un luogo..." @input="handleInputChange" @keydown.enter.prevent="searchApi">
@@ -105,7 +106,7 @@ export default {
                         <router-link :to="searchQuery !=''? {name: 'host-search', params: {'search' : searchQuery}} : ''" type="submit" class="btn search-btn" @click="searchApi()"><i class="fa-solid fa-magnifying-glass"></i></router-link>
                     </div>
                 </form>
-                <div id="login" class="btn primary-btn" v-if="this.$route.name == 'index'">
+                <div id="login" class="btn primary-btn d-none d-md-block ms-2" v-if="this.$route.name == 'index'">
                   <a class="px-2" href="http://127.0.0.1:8000/login">Login</a>
                 </div>
             </div>
@@ -218,5 +219,15 @@ export default {
 
   ul > li:nth-child(n+7) {
     display: none;
+  }
+
+  @media screen and (max-width:991px) {
+    .search-input {
+      width: 200px;
+    }
+
+    .search-wrapper {
+      width: 350px;
+    }
   }
 </style>

@@ -150,7 +150,7 @@ export default{
                 <div
                 v-for="apartment in store.apartments"
                 v-show="room <= apartment.number_of_room && bed <= apartment.number_of_bed && matchesSelectedServices(apartment)"
-                class="col-3 my-2">
+                class="col-sm-6 col-md-4 col-lg-3 my-2">
                 <router-link  class="text-decoration-none text-black position-relative" :to="{name: 'host-show', params: {'slug' : apartment.slug}}">
                     <div class="ms-card text-start">
                         <div class="img-container position-relative my-2">

@@ -111,16 +111,16 @@ export default {
                     <router-link :to="{name: 'index'}" class="breadcrumb text-secondary">Home / Torna indietro</router-link>
                 </div>
                 <div v-if="host.thumb" class="mt-4">
-                    <div class="row m-0">
-                        <div class="col-6 overflow-hidden first-div-img p-0 thumb-img">
+                    <div class="row m-0 my-row" >
+                        <div class="col-6 overflow-hidden p-0 thumb-img">
                             <img v-if="isURL(host.thumb)" :src="host.thumb" alt="Immagine non disponibile" class="w-100 h-100">
                             <img v-else :src="'http://127.0.0.1:8000/api/' + host.thumb" alt="Immagine alternativa" class="w-100 h-100">
                         </div>
-                        <div class="col-6 ps-2">
-                            <div class="row ps-0 g-2">
+                        <div class="col-6 ps-2" style="max-height: 400px;">
+                            <div class="row ms-0 ps-0 g-2">
                                 <div v-for="image in host.images" class="image-container p-0">
-                                    <img v-if="isURL(image.image)" :src="image.image" alt="Immagine non disponibile" class="w-100 h-100">
-                                    <img v-else :src="'http://127.0.0.1:8000/api/' + image.image" alt="Immagine alternativa" class="w-100 h-100">
+                                    <img v-if="isURL(image.image)" :src="image.image" alt="Immagine non disponibile" class="w-100 h-100 secondary-img">
+                                    <img v-else :src="'http://127.0.0.1:8000/api/' + image.image" alt="Immagine alternativa" class="w-100 h-100 secondary-img">
                                 </div>
                             </div>
                         </div>
@@ -172,8 +172,17 @@ export default {
 
 <style lang="scss" scoped>
 
+.my-row{
+    border-radius: 16px;
+    overflow: hidden;
+}
+
 .thumb-img{
     padding-right: 20px;
+}
+
+.secondary-img{
+    max-height: 150px;
 }
 
 .image-container{

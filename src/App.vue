@@ -15,6 +15,12 @@ import AppFooter from './components/AppFooter.vue'
     margin-top: 100px;
   }
 
+  @media screen and (max-width:767px) {
+    .header-margin{
+      margin-top: 50px;
+    }
+  }
+
   html{
     scroll-behavior: smooth;
   }
