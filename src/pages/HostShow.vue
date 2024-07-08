@@ -105,21 +105,21 @@ export default {
 
 <template>
     <main class="overflow-hidden">
-        <div class="container mt-5">
+        <div class="container  mt-5">
             <div v-if="host">
                 <div v-if="host.title">
                     <h2 class="fw-bold">{{ host.title }}</h2>
                     <router-link :to="{name: 'index'}" class="breadcrumb text-secondary">Home / Torna indietro</router-link>
                 </div>
-                <div v-if="host.thumb" class="mt-4">
-                    <div class="row m-0 my-row" >
-                        <div class="col-6 overflow-hidden p-0 thumb-img">
+                <div v-if="host.thumb" class="ms-container d-none d-md-block mt-4">
+                    <div class="row h-100 m-0 my-row" >
+                        <div class="col-6 overflow-hidden h-100 p-0 thumb-img">
                             <img v-if="isURL(host.thumb)" :src="host.thumb" alt="Immagine non disponibile" class="w-100 h-100">
                             <img v-else :src="'http://127.0.0.1:8000/api/' + host.thumb" alt="Immagine alternativa" class="w-100 h-100">
                         </div>
-                        <div class="col-6 ps-2" style="max-height: 400px;">
-                            <div class="row ms-0 ps-0 g-2">
-                                <div v-for="image in host.images" class="image-container p-0">
+                        <div class="col-6 h-100 ps-2" >
+                            <div class="row h-100 ms-0 ps-0 ">
+                                <div v-for="image in host.images" class="image-container h-50 col-6 p-0">
                                     <img v-if="isURL(image.image)" :src="image.image" alt="Immagine non disponibile" class="w-100 h-100 secondary-img">
                                     <img v-else :src="'http://127.0.0.1:8000/api/' + image.image" alt="Immagine alternativa" class="w-100 h-100 secondary-img">
                                 </div>
@@ -127,6 +127,30 @@ export default {
                         </div>
                     </div>
                 </div>
+                <!-- CAROSELLO MOBILE -->
+                 <div class="d-md-none mobile-carousel">
+                    <div id="carouselExample" class="carousel slide carousel h-100">
+                        <div class="carousel-inner h-100">
+                            <div v-if="host.thumb" class="carousel-item active h-100">
+                                <img v-if="isURL(host.thumb)" :src="host.thumb" alt="Immagine non disponibile" class="d-inline-block">
+                                <img v-else :src="'http://127.0.0.1:8000/api/' + host.thumb" alt="Immagine alternativa" class="d-inline-block">
+                            </div>
+                            <div v-for="image in host.images" class="carousel-item h-100">
+                                <img v-if="isURL(image.image)" :src="image.image" alt="Immagine non disponibile" class="d-inline-block ">
+                                <img v-else :src="'http://127.0.0.1:8000/api/' + image.image" alt="Immagine alternativa" class="d-inline-block ">
+                            </div>
+                            
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                        </div>
+                 </div>
                 <div class="row ms-0">
                     <div class="col-lg-7 col-12">
                         <div v-if="host.address" class="mt-4">
@@ -175,7 +199,9 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
+.ms-container{
+    height:500px
+}
 .my-row{
     border-radius: 16px;
     overflow: hidden;
@@ -183,11 +209,15 @@ export default {
 
 .thumb-img{
     padding-right: 20px;
+    img{
+
+        object-fit: cover;
+    }
 }
 
-.secondary-img{
-    max-height: 150px;
-}
+// .secondary-img{
+//     max-height: 150px
+// }
 
 .image-container{
     overflow: hidden;
@@ -195,26 +225,32 @@ export default {
 
 .image-container:nth-of-type(1){
     padding-right: 5px !important;
+    padding-bottom: 5px !important;
 }
 
 .image-container:nth-of-type(2){
     padding-left: 5px !important;
+    padding-bottom: 5px !important;
     border-top-right-radius: 16px;
 }
 
 .image-container:nth-of-type(3){
     padding-right: 5px !important;
+    padding-top: 5px !important;
 }
 
 .image-container:nth-of-type(4){
     padding-left: 5px !important;
+    padding-top: 5px !important;
+
     border-bottom-right-radius: 16px;
 }
 
 .image-container{
-    width: 50%;
+    height: 50%;
     img{
         width: 100%;
+        height: 100%;
         object-fit: cover;
     }
 }
@@ -276,6 +312,17 @@ export default {
 #ul-services{
     list-style-type: none;
     padding: 0;
+}
+//  CAROSELLO MOBILE
+.mobile-carousel{
+    height: 50vh;
+}
+.carousel-item{
+    img{
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
 }
 </style>
 
