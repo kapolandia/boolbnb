@@ -128,9 +128,9 @@ export default {
                     </div>
                 </div>
                 <!-- CAROSELLO MOBILE -->
-                 <div class="d-md-none mobile-carousel">
-                    <div id="carouselExample" class="carousel slide carousel h-100">
-                        <div class="carousel-inner h-100">
+                 <div class="d-md-none mobile-carousel ">
+                    <div id="carouselExample" class=" carousel slide carousel h-100">
+                        <div class="carousel-inner h-100 ">
                             <div v-if="host.thumb" class="carousel-item active h-100">
                                 <img v-if="isURL(host.thumb)" :src="host.thumb" alt="Immagine non disponibile" class="d-inline-block">
                                 <img v-else :src="'http://127.0.0.1:8000/api/' + host.thumb" alt="Immagine alternativa" class="d-inline-block">
@@ -201,7 +201,7 @@ export default {
 
 <style lang="scss" scoped>
 .ms-container{
-    height:500px
+    height:60vh
 }
 .my-row{
     border-radius: 16px;
@@ -317,6 +317,11 @@ export default {
 //  CAROSELLO MOBILE
 .mobile-carousel{
     height: 50vh;
+    
+}
+.carousel-inner{
+    border-radius: 16px;
+
 }
 .carousel-item{
     img{
