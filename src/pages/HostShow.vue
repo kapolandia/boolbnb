@@ -109,7 +109,7 @@ export default {
             <div v-if="host">
                 <div v-if="host.title">
                     <h2 class="fw-bold">{{ host.title }}</h2>
-                    <router-link :to="{name: 'index'}" class="breadcrumb text-secondary">Home / Torna indietro</router-link>
+                    <a @click.prevent="$router.go(-1)" class="breadcrumb text-secondary">Home / Torna indietro</a>
                 </div>
                 <div v-if="host.thumb" class="ms-container d-none d-lg-block mt-4">
                     <div class="row h-100 m-0 my-row" >

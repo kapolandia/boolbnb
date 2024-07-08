@@ -23,7 +23,19 @@ const router = createRouter({
             component:AppSearch
 
         },
-    ]
+    ],
+    scrollBehavior(to, from, savedPosition) {
+        if (savedPosition) {
+            return new Promise((resolve) => {
+                // Use nextTick to ensure the DOM is updated before scrolling
+                nextTick(() => {
+                    resolve(savedPosition);
+                });
+            });
+        } else {
+            return { left: 0, top: 0 };
+        }
+    }
 });
 
 export {router};
