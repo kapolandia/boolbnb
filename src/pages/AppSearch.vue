@@ -30,8 +30,7 @@ export default{
             },
 
             searchApi(){
-                if(this.distance != 20){
-                    let trueDistance = this.distance * 1000;
+                let trueDistance = this.distance * 1000;
                     store.apartments = [];
                     axios.get('http://127.0.0.1:8000/api/search', {
                         params: {
@@ -50,7 +49,6 @@ export default{
                     .catch(error => {
                         console.error(error);
                     });
-                }
             },
 
             consolelog(){
