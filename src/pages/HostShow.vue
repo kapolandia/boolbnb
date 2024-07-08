@@ -141,14 +141,15 @@ export default {
                             </div>
                             
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <button class="carousel-control-prev carousel-btn " type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <button class="carousel-control-next carousel-btn " type="button" data-bs-target="#carouselExample" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
+                        <!-- /CAROSELLO MOBILE -->
                         </div>
                  </div>
                 <div class="row ms-0">
@@ -323,6 +324,36 @@ export default {
         height: 100%;
         width: 100%;
     }
+}
+    .carousel-btn{
+    background-color: $primary-color;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 25px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    opacity: 1;
+    
+}
+
+.carousel-btn:nth-of-type(1){
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    
+    transform: translateY(-50%);
+
+}
+.carousel-btn:nth-of-type(2){
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    
 }
 </style>
 
