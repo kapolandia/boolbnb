@@ -12,6 +12,7 @@ export default{
         data(){
             return{
                 store,
+                isSearching: false,
                 UrlBase :window.location.origin,
                 distance: 20,
                 bed: 1,
@@ -30,6 +31,7 @@ export default{
             },
 
             searchApi(){
+                this.isSearching= true;
                 let trueDistance = this.distance * 1000;
                     store.apartments = [];
                     axios.get('http://127.0.0.1:8000/api/search', {
@@ -40,6 +42,7 @@ export default{
                         }
                     })
                     .then(response => {
+                        this.isSearching=false;
                         if(response.result = "true"){
                             response.data.apartments.forEach(apartment => {
                                 store.apartments.push(apartment);
@@ -141,7 +144,15 @@ export default{
         </aside>
         -->
 
-        <div class="container">
+        <!-- se sta caricando -->
+        <div v-if="isSearching">
+            <div class="container">
+
+                <img src="../assets/images/mini-logo.png" class="loading" alt="">
+            </div>
+
+        </div>
+        <div v-else class="container">
             <div class="row">
                 <div
                 v-for="apartment in store.apartments"
@@ -170,7 +181,7 @@ export default{
                 </ShareProp>
             </div>
 
-            <div v-if="store.apartments.length < 1" class="d-flex align-items-center justify-content-center text-center flex-column mt-5 position-relative" style="margin-bottom: 330px;">
+            <div v-if="store.apartments.length < 1 && isSearching === false" class="d-flex align-items-center justify-content-center text-center flex-column mt-5 position-relative" style="margin-bottom: 330px;">
                 <img src="../assets/images/house-login.png" alt="" srcset="" class="w-50">
                 <img src="../assets/images/cloud.png" alt="" srcset="" style="position: absolute;right: 100px;top: 0;max-width: 100px;" class="d-lg-none">
                 <img src="../assets/images/scribble.png" alt="" srcset="" style="position: absolute;right: 100px;top: 0;max-width: 100px;scale: -1;transform: rotate(25deg);" class="d-none d-lg-block">
@@ -236,6 +247,24 @@ export default{
 
 <style lang='scss' scoped>
 
+.loading {
+  animation: spin 1.5s infinite linear;
+  width: 100px;
+  position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50% );
+    z-index: 2;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
 label i{
     width: 30px;
 }
