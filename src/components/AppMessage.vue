@@ -79,9 +79,9 @@ export default {
             </div>
             <button type="submit" class="btn primary-btn">Invia messaggio</button>
             <div v-if="responseStatus" class="mt-3">
-                <p class="text-success">
-                    Messaggio inviato con successo
-                </p>
+                <div class="alert alert-success" role="alert">
+                    Messaggio inviato correttamente
+                </div>
             </div>
         </form>
     </div>

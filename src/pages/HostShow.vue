@@ -23,6 +23,7 @@ export default {
             axios.get(`http://127.0.0.1:8000/api/apartments/${this.$route.params.slug}`)
                 .then((response) => {
                     this.host = response.data.results;
+                    console.log(this.host.services.data);
                     if (this.host.latitude && this.host.longitude) {
                         console.log("Latitude:", this.host.latitude, "Longitude:", this.host.longitude);
 
@@ -148,6 +149,9 @@ export default {
                                     <i :class="service.icon"></i> {{ service.name }}
                                 </li>
                             </ul>
+                            <p v-if="host.services.length < 1">
+                                Nessun servizio disponibile
+                            </p>
                         </div>
                         <div class="my-3">
                             <h5 class="mb-3 fw-bold">Dove si trova</h5>
