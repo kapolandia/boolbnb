@@ -228,7 +228,7 @@ export default{
                             <div class="services">
                                 <div  class="my-2" v-for="service in store.services" :key="service.id">
                                     <input  type="checkbox" class="me-3 form-check-input" :name="service.name" :id="service.id" v-model="services" :value="service.id" @click="logServices()">
-                                    <label :for="service.name"><i :class="service.icon"></i> <span class="ms-1">{{ service.name }}</span></label>
+                                    <label :for="service.id"><i :class="service.icon"></i> <span class="ms-1">{{ service.name }}</span></label>
                                 </div>
                             </div>
                         </form>
