@@ -41,12 +41,10 @@ export default{
                         }
                     })
                     .then(response => {
-                        console.log(response);
-                        if(response.result = true){
-                        response.data.apartments.forEach(apartment => {
-                            store.apartments.push(apartment);
-                            store.searchInput = this.searchQuery;
-                        });
+                        if(response.result = "true"){
+                            response.data.apartments.forEach(apartment => {
+                                store.apartments.push(apartment);
+                            });
                         }
                     })
                     .catch(error => {
@@ -87,7 +85,7 @@ export default{
             },
         },
         mounted(){
-            console.log(store.apartments);
+            console.log(store.apartments.length);
             this.clearFilters();
         }
     }
@@ -151,29 +149,36 @@ export default{
                 v-for="apartment in store.apartments"
                 v-show="room <= apartment.number_of_room && bed <= apartment.number_of_bed && matchesSelectedServices(apartment)"
                 class="col-sm-6 col-md-4 col-lg-3 my-2">
-                <router-link  class="text-decoration-none text-black position-relative" :to="{name: 'host-show', params: {'slug' : apartment.slug}}">
-                    <div class="ms-card text-start">
-                        <div class="img-container position-relative my-2">
-                            <div @click.prevent="GetPopup(apartment)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
-                            <img v-if="isURL(apartment.thumb)" :src="apartment.thumb" alt="Immagine non disponibile" class="w-100 h-100">
-                            <img v-else :src="'http://127.0.0.1:8000/api/' + apartment.thumb" alt="Immagine alternativa" class="w-100 h-100">
+                    <router-link  class="text-decoration-none text-black position-relative" :to="{name: 'host-show', params: {'slug' : apartment.slug}}">
+                        <div class="ms-card text-start">
+                            <div class="img-container position-relative my-2">
+                                <div @click.prevent="GetPopup(apartment)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+                                <img v-if="isURL(apartment.thumb)" :src="apartment.thumb" alt="Immagine non disponibile" class="w-100 h-100">
+                                <img v-else :src="'http://127.0.0.1:8000/api/' + apartment.thumb" alt="Immagine alternativa" class="w-100 h-100">
+                            </div>
+                            <h6 class="mt-2 mb-1 fw-bold">{{ apartment.title }}</h6>
+                            <p class="text-secondary mb-2">Host: azienda specializzata</p>
+                            <p ><strong>{{ Math.floor(apartment.price) }} €</strong> a notte</p>
                         </div>
-                        <h6 class="mt-2 mb-1 fw-bold">{{ apartment.title }}</h6>
-                        <p class="text-secondary mb-2">Host: azienda specializzata</p>
-                        <p ><strong>{{ Math.floor(apartment.price) }} €</strong> a notte</p>
-                    </div>
-                </router-link>
+                    </router-link>
+                </div>
+                <ShareProp 
+                v-if="this.Popup.title != null" 
+                :shareProp="Popup"
+                :UrlBase="UrlBase"
+                @closePopup="ResetPopup()"
+                >
                 
+                </ShareProp>
             </div>
-            <ShareProp 
-            v-if="this.Popup.title != null" 
-            :shareProp="Popup"
-            :UrlBase="UrlBase"
-            @closePopup="ResetPopup()"
-            >
-            
-            </ShareProp>
-        </div>
+
+            <div v-if="store.apartments.length < 1" class="d-flex align-items-center justify-content-center text-center flex-column mt-5 position-relative" style="margin-bottom: 330px;">
+                <img src="../assets/images/house-login.png" alt="" srcset="" class="w-50">
+                <img src="../assets/images/cloud.png" alt="" srcset="" style="position: absolute;right: 100px;top: 0;max-width: 100px;" class="d-lg-none">
+                <img src="../assets/images/scribble.png" alt="" srcset="" style="position: absolute;right: 100px;top: 0;max-width: 100px;scale: -1;transform: rotate(25deg);" class="d-none d-lg-block">
+                <h4 class="h4 fw-bold mt-4">Nessuna casa trovata</h4>
+                <p class="p">Prova ad inserire una nuova meta</p>
+            </div>
         </div>
 
         <!-- Modale filtri -->

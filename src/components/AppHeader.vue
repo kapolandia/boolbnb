@@ -50,6 +50,7 @@ export default {
     searchApi(){
         //svuoto l'array nello store
         store.apartments = [];
+        store.searchInput = this.searchQuery;
         this.selectResult();
         axios.get('http://127.0.0.1:8000/api/search', {
             params: {
@@ -58,10 +59,9 @@ export default {
             }
         })
         .then(response => {
-            if(response.result = true){
+            if(response.result = "true"){
               response.data.apartments.forEach(apartment => {
                 store.apartments.push(apartment);
-                store.searchInput = this.searchQuery;
               });
             }
         })
