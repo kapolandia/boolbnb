@@ -67,6 +67,7 @@ export default{
                 this.bed = 1;
                 this.room = 1;
                 this.distance = 20;
+                this.searchApi();
             },
 
             ResetPopup(){
@@ -101,7 +102,7 @@ export default{
         </div>
         <router-link :to="{name: 'index'}" class="breadcrumb text-secondary">Home / Torna indietro</router-link>
     </div>
-    <section class="d-flex" style="margin-bottom: 200px;">
+    <section class="d-flex" style="margin-bottom: 40vh;">
 
         <!-- Per ora lo commento
         <aside>
@@ -226,7 +227,7 @@ export default{
             <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title fw-bold" id="exampleModalLabel">Applica filtri</h5>
+                    <h5 class="modal-title fw-bold" id="exampleModalLabel">Filtri di ricerca</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -266,7 +267,7 @@ export default{
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal" @click="clearFilters()">Cancella filtri</button>
+                    <button type="submit" class="btn cancel-btn" data-bs-dismiss="modal" @click="clearFilters()">Cancella filtri</button>
                     <button type="submit" class="btn btn-dark" data-bs-dismiss="modal" @click="searchApi()">Applica filtri</button>
                 </div>
                 </div>
@@ -371,4 +372,38 @@ z-index: 0;
         border-bottom: 1px solid #e9e9e9;
         padding-bottom: 10px;
     }
+
+    .cancel-btn{
+        border: 1px solid $primary-color;
+        color: $primary-color;
+    }
+
+    .cancel-btn:hover{
+        border: 1px solid $primary-color;
+        color: #fff;
+        background-color: $primary-color;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        background: $primary-color;
+    }
+    input[type=range]::-moz-range-thumb {
+        background: $primary-color;
+    }
+    input[type=range]::-ms-thumb {
+        background: $primary-color;
+    }
+
+    input[type="range"]:focus::-webkit-slider-thumb {
+        box-shadow: 0 0 10px $primary-color;
+    }
+
+    input[type="range"]:focus::-moz-range-thumb {
+        box-shadow: 0 0 10px $primary-color;
+    }
+
+    input[type="range"]:focus::-ms-thumb {
+        box-shadow: 0 0 10px $primary-color;
+    }
+    
 </style>

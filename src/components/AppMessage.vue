@@ -94,6 +94,7 @@ export default {
         font-weight: 600;
         padding: 16px 16px;
         width: 100%;
+        border: 1px solid $primary-color !important;
     }
 
     .primary-btn:hover{
