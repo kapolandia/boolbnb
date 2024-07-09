@@ -166,7 +166,7 @@ export default{
                                 <img v-else :src="'http://127.0.0.1:8000/api/' + apartment.thumb" alt="Immagine alternativa" class="w-100 h-100">
                             </div>
                             <h6 class="mt-2 mb-1 fw-bold">{{ apartment.title }}</h6>
-                            <p class="text-secondary mb-2">Host: azienda specializzata</p>
+                            <p class="text-secondary mb-1">Host: {{ apartment.user.name }} {{ apartment.user.surname }}</p>
                             <p ><strong>{{ Math.floor(apartment.price) }} €</strong> a notte</p>
                         </div>
                     </router-link>
