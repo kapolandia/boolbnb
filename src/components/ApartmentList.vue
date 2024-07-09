@@ -71,7 +71,7 @@ export default {
                     <router-link class="text-decoration-none text-black position-relative" :to="{ name: 'host-show', params: { 'slug': host.slug } }">
                         <div class="ms-card text-start">
                             <div class="img-container position-relative my-2">
-                                <div @click.prevent="GetPopup(host)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+                                <!-- <div @click.prevent="GetPopup(host)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div> -->
                                 <div class="sponsor-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-crown"></i></div>
                                 <img v-if="isURL(host.thumb)" :src="host.thumb" alt="Immagine non disponibile" class="w-100 h-100">
                                 <img v-else :src="'http://127.0.0.1:8000/api/' + host.thumb" alt="Immagine alternativa" class="w-100 h-100">
@@ -94,7 +94,7 @@ export default {
                     <router-link class="text-decoration-none text-black position-relative" :to="{ name: 'host-show', params: { 'slug': host.slug } }">
                         <div class="ms-card text-start">
                             <div class="img-container position-relative my-2">
-                                <div @click.prevent="GetPopup(host)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+                                <!-- <div @click.prevent="GetPopup(host)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div> -->
                                 <img v-if="isURL(host.thumb)" :src="host.thumb" alt="Immagine non disponibile" class="w-100 h-100">
                                 <img v-else :src="'http://127.0.0.1:8000/api/' + host.thumb" alt="Immagine alternativa" class="w-100 h-100">
                             </div>
@@ -140,7 +140,7 @@ z-index: 0;
         display: flex;
         justify-content: center;
         align-items: center;
-        top:50px;
+        top:10px;
         right: 10px;
         background-color: $primary-color;
         color: #fff;
