@@ -162,12 +162,18 @@ export default{
                         <div class="ms-card text-start">
                             <div class="img-container position-relative my-2">
                                 <div @click.prevent="GetPopup(apartment)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+                                <div v-if="apartment.visibility == 1">
+                                    <div class="sponsor-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-crown"></i></div>
+                                </div>
                                 <img v-if="isURL(apartment.thumb)" :src="apartment.thumb" alt="Immagine non disponibile" class="w-100 h-100">
                                 <img v-else :src="'http://127.0.0.1:8000/api/' + apartment.thumb" alt="Immagine alternativa" class="w-100 h-100">
                             </div>
                             <h6 class="mt-2 mb-1 fw-bold">{{ apartment.title }}</h6>
-                            <p class="text-secondary mb-2">Host: azienda specializzata</p>
-                            <p ><strong>{{ Math.floor(apartment.price) }} €</strong> a notte</p>
+                            <p class="text-secondary mb-1">Host: azienda specializzata</p>
+                            <p class="dashboard-p text-secondary">
+                                {{ apartment.number_of_room < 2 ? apartment.number_of_room + ' camera da letto' : apartment.number_of_room + ' camere da letto' }} &#183;
+                                {{ apartment.number_of_bed < 2 ? apartment.number_of_bed + ' letto' : apartment.number_of_bed + ' letti' }}
+                            </p>
                         </div>
                     </router-link>
                 </div>
@@ -276,6 +282,7 @@ label i{
   .breadcrumb{
     text-decoration: underline;
     cursor: pointer;
+    display: inline-block;
 }
 
 .breadcrumb:hover{
@@ -299,6 +306,19 @@ z-index: 0;
         right: 10px;
         background-color: rgba($color: lightgrey, $alpha: 0.7);
         z-index: 1;
+    }
+    .sponsor-button{
+        height: 30px;
+        width: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top:50px;
+        right: 10px;
+        background-color: $primary-color;
+        color: #fff;
+        z-index: 1;
+        cursor: default;
     }
     .img-container{
         width: 100%;

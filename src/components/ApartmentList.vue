@@ -72,12 +72,16 @@ export default {
                         <div class="ms-card text-start">
                             <div class="img-container position-relative my-2">
                                 <div @click.prevent="GetPopup(host)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+                                <div class="sponsor-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-crown"></i></div>
                                 <img v-if="isURL(host.thumb)" :src="host.thumb" alt="Immagine non disponibile" class="w-100 h-100">
                                 <img v-else :src="'http://127.0.0.1:8000/api/' + host.thumb" alt="Immagine alternativa" class="w-100 h-100">
                             </div>
                             <h6 class="mt-1 mb-1 fw-bold">{{ host.title }}</h6>
                             <p class="text-secondary mb-2">Host: {{ host.user.name }} {{ host.user.surname }}</p>
-                            <p><strong>{{ Math.floor(host.price) }} €</strong> a notte</p>
+                            <p class="dashboard-p text-secondary">
+                                {{ host.number_of_room < 2 ? host.number_of_room + ' camera da letto' : host.number_of_room + ' camere da letto' }} &#183;
+                                {{ host.number_of_bed < 2 ? host.number_of_bed + ' letto' : host.number_of_bed + ' letti' }}
+                            </p>
                         </div>
                     </router-link>
                 </div>
@@ -96,7 +100,10 @@ export default {
                             </div>
                             <h6 class="mt-1 mb-1 fw-bold">{{ host.title }}</h6>
                             <p class="text-secondary mb-2">Host: {{ host.user.name }} {{ host.user.surname }}</p>
-                            <p><strong>{{ Math.floor(host.price) }} €</strong> a notte</p>
+                            <p class="dashboard-p text-secondary">
+                                {{ host.number_of_room < 2 ? host.number_of_room + ' camera da letto' : host.number_of_room + ' camere da letto' }} &#183;
+                                {{ host.number_of_bed < 2 ? host.number_of_bed + ' letto' : host.number_of_bed + ' letti' }}
+                            </p>
                         </div>
                     </router-link>
                 </div>
@@ -126,6 +133,19 @@ z-index: 0;
         right: 10px;
         background-color: rgba($color: lightgrey, $alpha: 0.7);
         z-index: 1;
+    }
+    .sponsor-button{
+        height: 30px;
+        width: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top:50px;
+        right: 10px;
+        background-color: $primary-color;
+        color: #fff;
+        z-index: 1;
+        cursor: default;
     }
     .img-container{
         width: 100%;
