@@ -33,7 +33,7 @@ export default{
             searchApi(){
                 this.isSearching= true;
                 let trueDistance = this.distance * 1000;
-                    store.apartments = [];
+                store.apartments = [];
                     axios.get('http://127.0.0.1:8000/api/search', {
                         params: {
                             longitude: store.longitude,
@@ -70,6 +70,13 @@ export default{
                 this.searchApi();
             },
 
+            clearFiltersLite(){
+                this.services = [];
+                this.bed = 1;
+                this.room = 1;
+                this.distance = 20;
+            },
+
             ResetPopup(){
                 this.Popup = {};
                 document.body.style.overflow = '';
@@ -88,7 +95,7 @@ export default{
         },
         mounted(){
             console.log(store.apartments);
-            this.clearFilters();
+            this.clearFiltersLite();
         }
     }
 </script>
