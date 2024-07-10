@@ -176,8 +176,7 @@ export default{
                                 <img v-if="isURL(apartment.thumb)" :src="apartment.thumb" alt="Immagine non disponibile" class="w-100 h-100">
                                 <img v-else :src="'http://127.0.0.1:8000/api/' + apartment.thumb" alt="Immagine alternativa" class="w-100 h-100">
                             </div>
-                            <h6 class="mt-2 mb-1 fw-bold">{{ apartment.title }}</h6>
-                            <p class="text-secondary mb-1">Host: {{ apartment.user.name }} {{ apartment.user.surname }}</p>
+
                             <h6 class="mt-2 mb-2 fw-bold">{{ apartment.title }}</h6>
                             <p class="text-secondary mb-1">Host: {{ apartment.user.name }} {{ apartment.user.surname }}</p>
                             <p class="text-secondary mb-1">Distante {{ Math.round(apartment.distance_km) }} km da {{ store.searchInput }}</p>
