@@ -25,7 +25,7 @@
                 tl.to("#cloud",{x: 0, duration: 3}, 'onReturn')
                 tl.to("#sun",{rotate: 360,duration: 3}, 'onStart')
                 tl.to("#sun",{rotate: -360,duration: 3}, 'onReturn')
-                tl.repeat(3)
+                tl.repeat(1)
                 
                 Draggable.create("#cloud", {
                     bounds:{
