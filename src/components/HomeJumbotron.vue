@@ -55,7 +55,7 @@
         <div class="col-sm-12 col-md-6 position-relative">
             <h1 class="h1 fw-bolder display-4">Il soggiorno <span class="primary-color">perfetto</span> ovunque tu vada.</h1>
             <h5 class="subtitle fw-bolder mt-5">Scopri le nostre case da sogno</h5>
-            <a class="btn primary-btn mt-3" @click="scroll()">Trova la tua </a>
+            <a class="btn primary-btn mt-3" @click="scroll()" tabindex="0">Trova la tua </a>
             <img src="../assets/images/scribble.png" alt="" srcset="" class="position-absolute scribble-1  d-sm-block d-lg-none" >
             <img src="../assets/images/scribble.png" alt="" srcset="" class="position-absolute scribble-2">
         </div>
@@ -83,6 +83,7 @@
         padding: 20px 26px;
         width: 60%;
         font-size: 20px;
+        border: 1px solid $primary-color !important;
     }
 
     .primary-btn:hover{
@@ -90,6 +91,15 @@
         color: #fff;
         box-shadow: 0 0 10px $primary-color;
         cursor: pointer;
+    }
+
+    .primary-btn:focus {
+        transform: scale(0.96) !important;
+        transition: transform 0.1s ease-in-out;
+    }
+
+    .primary-btn:focus:not(:active) {
+        transform: scale(1) !important; 
     }
 
     .subtitle{

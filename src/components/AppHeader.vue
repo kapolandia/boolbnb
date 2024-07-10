@@ -106,8 +106,8 @@ export default {
                         <router-link :to="searchQuery !=''? {name: 'host-search', params: {'search' : searchQuery}} : ''" type="submit" class="btn search-btn" @click="searchApi()"><i class="fa-solid fa-magnifying-glass"></i></router-link>
                     </div>
                 </form>
-                <div id="login" class="btn primary-btn d-none d-md-block ms-2" v-if="this.$route.name == 'index'">
-                  <a class="px-2" href="http://127.0.0.1:8000/login">Login</a>
+                <div id="login" class="btn primary-btn d-none d-md-block ms-2" v-if="this.$route.name == 'index'" tabindex="0">
+                  <a class="px-2" href="http://127.0.0.1:8000/login" >Login</a>
                 </div>
             </div>
         </nav>
@@ -125,6 +125,7 @@ export default {
 
   .primary-btn {
     background-color: $primary-color;
+    border: 1px solid $primary-color !important;
     color: #fff;
   }
 
@@ -133,6 +134,15 @@ export default {
     color: #fff;
     box-shadow: 0 0 10px $primary-color;
     cursor: pointer;
+  }
+
+  .primary-btn:focus {
+        transform: scale(0.96) !important;
+        transition: transform 0.1s ease-in-out;
+    }
+
+  .primary-btn:focus:not(:active) {
+      transform: scale(1) !important; 
   }
 
   .search-input {
@@ -155,6 +165,7 @@ export default {
     justify-content: center;
     align-items: center;
     color: #fff;
+    border: 1px solid $primary-color !important;
   }
 
   .search-btn:hover {
@@ -168,6 +179,15 @@ export default {
     color: #fff;
     box-shadow: 0 0 10px $primary-color;
     cursor: pointer;
+  }
+
+  .search-btn:focus {
+        transform: scale(0.96) !important;
+        transition: transform 0.1s ease-in-out;
+    }
+
+  .search-btn:focus:not(:active) {
+      transform: scale(1) !important; 
   }
 
   .search-wrapper {
