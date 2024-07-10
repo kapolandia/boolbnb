@@ -33,7 +33,7 @@ export default{
             searchApi(){
                 this.isSearching= true;
                 let trueDistance = this.distance * 1000;
-                    store.apartments = [];
+                store.apartments = [];
                     axios.get('http://127.0.0.1:8000/api/search', {
                         params: {
                             longitude: store.longitude,
@@ -67,6 +67,14 @@ export default{
                 this.bed = 1;
                 this.room = 1;
                 this.distance = 20;
+                this.searchApi();
+            },
+
+            clearFiltersLite(){
+                this.services = [];
+                this.bed = 1;
+                this.room = 1;
+                this.distance = 20;
             },
 
             ResetPopup(){
@@ -86,8 +94,8 @@ export default{
             },
         },
         mounted(){
-            console.log(store.apartments.length);
-            this.clearFilters();
+            console.log(store.apartments);
+            this.clearFiltersLite();
         }
     }
 </script>
@@ -101,7 +109,7 @@ export default{
         </div>
         <router-link :to="{name: 'index'}" class="breadcrumb text-secondary">Home / Torna indietro</router-link>
     </div>
-    <section class="d-flex">
+    <section class="d-flex" style="margin-bottom: 40vh;">
 
         <!-- Per ora lo commento
         <aside>
@@ -156,12 +164,12 @@ export default{
             <div class="row">
                 <div
                 v-for="apartment in store.apartments"
-                v-show="room <= apartment.number_of_room && bed <= apartment.number_of_bed && matchesSelectedServices(apartment)"
+                v-show="room <= apartment.number_of_room && bed <= apartment.number_of_bed && matchesSelectedServices(apartment) && apartment.visibility > 0"
                 class="col-sm-6 col-md-4 col-lg-3 my-2">
                     <router-link  class="text-decoration-none text-black position-relative" :to="{name: 'host-show', params: {'slug' : apartment.slug}}">
                         <div class="ms-card text-start">
                             <div class="img-container position-relative my-2">
-                                <div @click.prevent="GetPopup(apartment)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+                                <!-- <div @click.prevent="GetPopup(apartment)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div> -->
                                 <div v-if="apartment.visibility == 1">
                                     <div class="sponsor-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-crown"></i></div>
                                 </div>
@@ -170,6 +178,33 @@ export default{
                             </div>
                             <h6 class="mt-2 mb-1 fw-bold">{{ apartment.title }}</h6>
                             <p class="text-secondary mb-1">Host: {{ apartment.user.name }} {{ apartment.user.surname }}</p>
+                            <h6 class="mt-2 mb-2 fw-bold">{{ apartment.title }}</h6>
+                            <p class="text-secondary mb-1">Host: {{ apartment.user.name }} {{ apartment.user.surname }}</p>
+                            <p class="text-secondary mb-1">Distante {{ Math.round(apartment.distance_km) }} km da {{ store.searchInput }}</p>
+                            <p class="dashboard-p text-secondary">
+                                {{ apartment.number_of_room < 2 ? apartment.number_of_room + ' camera da letto' : apartment.number_of_room + ' camere da letto' }} &#183;
+                                {{ apartment.number_of_bed < 2 ? apartment.number_of_bed + ' letto' : apartment.number_of_bed + ' letti' }}
+                            </p>
+                        </div>
+                    </router-link>
+                </div>
+                <div
+                v-for="apartment in store.apartments"
+                v-show="room <= apartment.number_of_room && bed <= apartment.number_of_bed && matchesSelectedServices(apartment) && apartment.visibility < 1"
+                class="col-sm-6 col-md-4 col-lg-3 my-2">
+                    <router-link  class="text-decoration-none text-black position-relative" :to="{name: 'host-show', params: {'slug' : apartment.slug}}">
+                        <div class="ms-card text-start">
+                            <div class="img-container position-relative my-2">
+                                <!-- <div @click.prevent="GetPopup(apartment)" class="share-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-arrow-up-from-bracket"></i></div> -->
+                                <div v-if="apartment.visibility == 1">
+                                    <div class="sponsor-button p-2 rounded-circle position-absolute"><i class="fa-solid fa-crown"></i></div>
+                                </div>
+                                <img v-if="isURL(apartment.thumb)" :src="apartment.thumb" alt="Immagine non disponibile" class="w-100 h-100">
+                                <img v-else :src="'http://127.0.0.1:8000/api/' + apartment.thumb" alt="Immagine alternativa" class="w-100 h-100">
+                            </div>
+                            <h6 class="mt-2 mb-2 fw-bold">{{ apartment.title }}</h6>
+                            <p class="text-secondary mb-1">Host: {{ apartment.user.name }} {{ apartment.user.surname }}</p>
+                            <p class="text-secondary mb-1">Distante {{ Math.round(apartment.distance_km) }} km da {{ store.searchInput }}</p>
                             <p class="dashboard-p text-secondary">
                                 {{ apartment.number_of_room < 2 ? apartment.number_of_room + ' camera da letto' : apartment.number_of_room + ' camere da letto' }} &#183;
                                 {{ apartment.number_of_bed < 2 ? apartment.number_of_bed + ' letto' : apartment.number_of_bed + ' letti' }}
@@ -201,7 +236,7 @@ export default{
             <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title fw-bold" id="exampleModalLabel">Applica filtri</h5>
+                    <h5 class="modal-title fw-bold" id="exampleModalLabel">Filtri di ricerca</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -241,7 +276,7 @@ export default{
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-outline-danger" data-bs-dismiss="modal" @click="clearFilters()">Cancella filtri</button>
+                    <button type="submit" class="btn cancel-btn" data-bs-dismiss="modal" @click="clearFilters()">Cancella filtri</button>
                     <button type="submit" class="btn btn-dark" data-bs-dismiss="modal" @click="searchApi()">Applica filtri</button>
                 </div>
                 </div>
@@ -313,7 +348,7 @@ z-index: 0;
         display: flex;
         justify-content: center;
         align-items: center;
-        top:50px;
+        top:10px;
         right: 10px;
         background-color: $primary-color;
         color: #fff;
@@ -346,4 +381,38 @@ z-index: 0;
         border-bottom: 1px solid #e9e9e9;
         padding-bottom: 10px;
     }
+
+    .cancel-btn{
+        border: 1px solid $primary-color;
+        color: $primary-color;
+    }
+
+    .cancel-btn:hover{
+        border: 1px solid $primary-color;
+        color: #fff;
+        background-color: $primary-color;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        background: $primary-color;
+    }
+    input[type=range]::-moz-range-thumb {
+        background: $primary-color;
+    }
+    input[type=range]::-ms-thumb {
+        background: $primary-color;
+    }
+
+    input[type="range"]:focus::-webkit-slider-thumb {
+        box-shadow: 0 0 10px $primary-color;
+    }
+
+    input[type="range"]:focus::-moz-range-thumb {
+        box-shadow: 0 0 10px $primary-color;
+    }
+
+    input[type="range"]:focus::-ms-thumb {
+        box-shadow: 0 0 10px $primary-color;
+    }
+    
 </style>

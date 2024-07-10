@@ -262,6 +262,7 @@ export default {
 
 .primary-btn{
     background-color: $primary-color;
+    border: 1px solid $primary-color !important;
     color: #fff;
     font-weight: 600;
     padding: 20px 26px;
@@ -272,6 +273,7 @@ export default {
     background-color: $primary-color;
     color: #fff;
     box-shadow: 0 0 10px $primary-color;
+    border: 1px solid $primary-color !important;
     cursor: pointer;
 }
 
