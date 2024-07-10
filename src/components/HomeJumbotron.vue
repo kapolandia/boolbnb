@@ -1,16 +1,57 @@
 <script>
+    import { gsap } from "gsap-trial";
+    import { Draggable } from "gsap-trial/Draggable";
+    import { InertiaPlugin } from "gsap-trial/InertiaPlugin";
+
     export default{
         name: 'HomeJumbotron',
+        data(){
+            return{
+            }
+        },
         methods: {
             scroll(){
                 document.getElementById('section1').scrollIntoView();
+            },
+            DoAnimation(){
+                let tl = gsap.timeline()
+                
+                gsap.registerPlugin(Draggable,InertiaPlugin);
+
+                gsap.set("#cloud", {transformOrigin:"50% 50%"})
+                gsap.set("#sun", {transformOrigin:"50% 50%"})
+
+                tl.to("#cloud",{x: 200, duration: 3}, 'onStart')
+                tl.to("#cloud",{x: 0, duration: 3}, 'onReturn')
+                tl.to("#sun",{rotate: 360,duration: 3}, 'onStart')
+                tl.to("#sun",{rotate: -360,duration: 3}, 'onReturn')
+                tl.repeat(3)
+                
+                Draggable.create("#cloud", {
+                    bounds:{
+                        minX: 0,
+                        maxX: 200,
+                        
+                    },
+                    type:"x",
+                    overshootTolerance:0,
+                    inertia: true,
+                }),
+                Draggable.create("#sun", {
+                    type:"rotation",
+                    inertia:true
+                })
+                
             }           
+        },
+        mounted(){
+            this.DoAnimation()
         }
     }
 </script>
 
 <template>
-    <div class="row">
+    <div class="row" >
         <div class="col-sm-12 col-md-6 position-relative">
             <h1 class="h1 fw-bolder display-4">Il soggiorno <span class="primary-color">perfetto</span> ovunque tu vada.</h1>
             <h5 class="subtitle fw-bolder mt-5">Scopri le nostre case da sogno</h5>
@@ -18,12 +59,15 @@
             <img src="../assets/images/scribble.png" alt="" srcset="" class="position-absolute scribble-1  d-sm-block d-lg-none" >
             <img src="../assets/images/scribble.png" alt="" srcset="" class="position-absolute scribble-2">
         </div>
-        <div class="col-sm-12 col-md-6 position-relative" >
-            <div class="overflow-hidden rounded">
-                <img src="../assets/images/image.png" alt="" srcset="" class="w-100">
+        <div class="col-sm-12 col-md-6 position-relative" id="animation-space">
+            <div class="overflow-hidden rounded" >
+                <img  src="../assets/images/image.png" alt="" srcset="" class="w-100">
             </div>
-            <img src="../assets/images/sun.png" alt="" srcset="" class="position-absolute sun">
-            <img src="../assets/images/cloud.png" alt="" srcset="" class="position-absolute cloud">
+            <img  src="../assets/images/sun.png" alt="" srcset="" id="sun" class="position-absolute sun">
+            
+
+                <img id="cloud" src="../assets/images/cloud.png" alt="" srcset="" class="position-absolute cloud">
+            
         </div>
     </div>
 </template>
@@ -121,4 +165,5 @@
             rotate: -40deg;
         }
     }
+   
 </style>
