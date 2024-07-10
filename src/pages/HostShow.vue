@@ -300,6 +300,7 @@ export default {
 .breadcrumb{
     text-decoration: underline;
     cursor: pointer;
+    display: inline-block;
 }
 
 .breadcrumb:hover{
